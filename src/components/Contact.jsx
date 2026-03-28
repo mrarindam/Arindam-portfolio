@@ -161,7 +161,7 @@ export default function Contact() {
         </div>
 
         <div className="contact-intro">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -170,8 +170,8 @@ export default function Contact() {
           >
             Hi, I’m <span className="name-highlight">Arindam</span> — a passionate <span className="keyword-highlight">web developer</span> with a strong foundation in <span className="keyword-highlight">modern technologies</span>.
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -180,8 +180,8 @@ export default function Contact() {
           >
             I’ve been coding since 2021, building dynamic, <span className="keyword-highlight">scalable</span>, and <span className="keyword-highlight">high-performance</span> web applications using JavaScript, React.js, Node.js, and Python.
           </motion.p>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
