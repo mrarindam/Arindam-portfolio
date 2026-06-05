@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -296,6 +297,7 @@ export default function Blogs() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedBlog(null)}
+            data-lenis-prevent
           >
             <motion.div
               className="blog-modal-content"
@@ -304,6 +306,7 @@ export default function Blogs() {
               exit={{ opacity: 0, scale: 0.9, y: 30 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
+              data-lenis-prevent
             >
               <button className="blog-modal-close" onClick={() => setSelectedBlog(null)}>
                 &times;

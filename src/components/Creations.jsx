@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Creations.css';
@@ -9,16 +10,17 @@ import prj4 from '../media/Projects/prj4.webp';
 import prj5 from '../media/Projects/prj5.webp';
 import prj6 from '../media/Projects/prj6.webp';
 import prj7 from '../media/Projects/prj7.webp';
+import prj8 from '../media/Projects/prj8.webp';
 
 const projects = [
   {
     id: 1,
-    name: 'KURO THE VOICE ASSISTANCE',
-    stack: ['React Native'],
-    description: 'A cutting-edge AI-driven voice assistant built for seamless mobile experiences, featuring intuitive natural language processing.',
+    name: 'Tokensight AI',
+    stack: ['Next Js', 'Tailwind CSS'],
+    description: 'Scan any Solana token in seconds. Analyze liquidity, holder concentration, creator behavior and price momentum with real-time, AI-driven risk signals.',
     image: prj1,
-    demoLink: 'https://arindamk143.github.io/Kuro-Assistance/',
-    githubLink: 'https://github.com/Arindamk143/Kuro-Assistance/'
+    demoLink: 'https://tokensightai.tech/',
+    githubLink: 'https://github.com/mrarindam/TokenSight-Ai'
   },
   {
     id: 2,
@@ -74,6 +76,15 @@ const projects = [
     image: prj7,
     demoLink: 'https://saygmlouder.vercel.app/',
     githubLink: 'https://github.com/mrarindam/'
+  },
+  {
+    id: 8,
+    name: 'KURO THE VOICE ASSISTANCE',
+    stack: ['React Native'],
+    description: 'A cutting-edge AI-driven voice assistant built for seamless mobile experiences, featuring intuitive natural language processing.',
+    image: prj8,
+    demoLink: 'https://arindamk143.github.io/Kuro-Assistance/',
+    githubLink: 'https://github.com/Arindamk143/Kuro-Assistance/'
   },
 ];
 

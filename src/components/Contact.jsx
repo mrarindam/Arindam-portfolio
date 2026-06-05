@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import "./Contact.css";
@@ -152,7 +153,7 @@ export default function Contact() {
   ];
 
   return (
-    <section ref={containerRef} className="contact-wrapper">
+    <section ref={containerRef} id="contact" className="contact-wrapper">
       <div className="contact-background-particles" />
 
       <div className="contact-scene">

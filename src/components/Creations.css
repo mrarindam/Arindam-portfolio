@@ -52,7 +52,6 @@
   font-weight: 900;
   color: #fff;
   line-height: 1.1;
-  text-shadow: 0 0 20px rgba(255, 158, 0, 0.3);
 }
 
 .project-tag {
@@ -282,7 +281,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 15px rgba(255, 158, 0, 0.5);
   font-weight: 900;
   letter-spacing: 2px;
 }
@@ -411,7 +409,6 @@
   .project-title {
     font-size: 1.6rem;
     line-height: 1.2;
-    text-shadow: 0 0 10px rgba(255, 158, 0, 0.2);
   }
 
   .project-tag {

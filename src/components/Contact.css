@@ -35,7 +35,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(255, 107, 43, 0.4));
 }
 
 .animation-center {
@@ -205,7 +204,6 @@
 
 .contact-node:hover .node-label {
   color: #fff;
-  text-shadow: 0 0 10px rgba(255, 107, 43, 0.8);
 }
 
 /* Mobile Adjustments */
@@ -255,7 +253,6 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  text-shadow: 0 0 12px rgba(255, 107, 43, 0.2);
   font-weight: 800;
   display: inline-block;
 }
@@ -263,7 +260,6 @@
 .keyword-highlight {
   color: #ff9e00;
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(255, 158, 0, 0.15);
   filter: brightness(1.2);
 }
 

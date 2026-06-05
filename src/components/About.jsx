@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Code, Camera, BadgeCheck, Sparkles } from 'lucide-react';

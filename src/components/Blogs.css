@@ -46,7 +46,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 10px rgba(255, 107, 43, 0.4));
 }
 
 .blog-modal-content:hover {
@@ -105,7 +104,6 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 2rem;
   color: #fff;
-  text-shadow: 0 0 15px rgba(255, 158, 0, 0.4);
   padding-right: 4rem;
   /* Space for close button */
   margin-top: 0;
@@ -149,7 +147,6 @@
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
-  text-shadow: 0 0 10px rgba(255, 158, 0, 0.3);
 }
 
 .blog-modal-body p {
@@ -174,7 +171,6 @@
   font-family: 'Consolas', 'Courier New', monospace;
   color: #a3e635;
   /* Hacker green/neon tint for code */
-  text-shadow: 0 0 8px rgba(163, 230, 53, 0.3);
   overflow-x: auto;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
 }
@@ -188,7 +184,6 @@
   font-family: 'Inter', sans-serif;
   color: #ff9e00;
   font-weight: 600;
-  text-shadow: 0 0 5px rgba(255, 158, 0, 0.3);
 }
 
 /* Embedded Blog Images */
