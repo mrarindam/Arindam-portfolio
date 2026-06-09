@@ -1,38 +1,57 @@
 import React, { useEffect, Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ReactLenis } from 'lenis/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import BlogPage from './pages/BlogPage';
 import './index.css';
 
-// Lazy load non-critical sections spanning below the fold
+import ExplorePortfolio from './components/ExplorePortfolio';
+
 const About = lazy(() => import('./components/About'));
-const Blogs = lazy(() => import('./components/Blogs'));
 const Creations = lazy(() => import('./components/Creations'));
-const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+
+function HomePage() {
+  return (
+    <>
+      <Navbar />
+      <div className="app-main">
+        <Hero />
+        <ExplorePortfolio />
+        <Suspense fallback={<div style={{ height: '100vh', background: '#000' }} />}>
+          <About />
+          <Creations />
+          <Footer />
+        </Suspense>
+      </div>
+    </>
+  );
+}
 
 export default function App() {
   useEffect(() => {
-    // Force scroll to top on every refresh
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
+    window.history.replaceState(null, '', window.location.pathname + window.location.search);
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
-      <Navbar />
-      <div className="app-main">
-        <Hero />
-
-        {/* Defer heavy secondary DOM rendering until necessary fallback skeleton is resolved inline */}
+    <BrowserRouter>
+      <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
         <Suspense fallback={<div style={{ height: '100vh', background: '#000' }} />}>
-          <About />
-          <Blogs />
-          <Creations />
-          <Contact />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/blog/:id" element={<BlogPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
         </Suspense>
-      </div>
-    </ReactLenis>
+      </ReactLenis>
+    </BrowserRouter>
   );
 }

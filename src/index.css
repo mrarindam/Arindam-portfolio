@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Dancing+Script:wght@700&family=Pacifico&display=swap');
 
 :root {
   --primary-glow: #ff9e00;
@@ -26,8 +26,8 @@ html {
   background-color: #030308;
   /* Super dark cinematic background */
   color: var(--text-primary);
-  overflow-x: hidden;
-  /* Prevent horizontal scroll wobble */
+  overflow-x: clip;
+  /* Prevent horizontal scroll wobble without breaking position: sticky */
 }
 
 /* Hero GSAP Pinned Section */
@@ -143,6 +143,9 @@ html {
   display: flex;
   align-items: center;
   padding: 0 5%;
+  /* Wrapper for decorative hero text only — let clicks pass through to
+     the interactive About overlay/logos beneath it. */
+  pointer-events: none;
 }
 
 .text-layer {
@@ -150,7 +153,10 @@ html {
   left: 5%;
   max-width: 800px;
   will-change: transform, opacity, filter;
-  pointer-events: auto;
+  /* Decorative hero text only. Must NOT capture pointer events —
+     .layer-3 spans the full viewport and would otherwise block clicks
+     on the About panels/logos layered beneath it. */
+  pointer-events: none;
 }
 
 .text-content {
@@ -235,6 +241,32 @@ html {
   100% {
     background-position: -200% center;
   }
+}
+
+/* Climactic final hero line — centered on screen & enlarged.
+   Centering is done with flexbox (not transform) so GSAP's y/blur
+   animations on this layer don't get overridden. */
+.layer-3 {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.layer-3 .title-container {
+  margin-bottom: 0;
+}
+
+.layer-3 .title {
+  font-size: clamp(3.5rem, 9vw, 8rem);
 }
 
 .description {
@@ -346,6 +378,18 @@ html {
   .title {
     font-size: clamp(1.8rem, 6.5vw, 2.4rem);
     line-height: 1.2;
+  }
+
+  /* Keep the climactic line centered (override the bottom-anchored
+     .text-layer mobile rule) and scale it up relative to the others. */
+  .layer-3 {
+    top: 0;
+    bottom: 0;
+    padding: 0 20px;
+  }
+
+  .layer-3 .title {
+    font-size: clamp(2.6rem, 11vw, 3.8rem);
   }
 
   .subtitle {
@@ -585,7 +629,7 @@ html {
   position: relative;
   width: 100%;
   z-index: 1;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 /* ---------------- ABOUT SECTION ---------------- */

@@ -1,268 +1,136 @@
-/* eslint-disable */
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useLayoutEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import './Creations.css';
 
-import prj1 from '../media/Projects/prj1.webp';
-import prj2 from '../media/Projects/prj2.webp';
-import prj3 from '../media/Projects/prj3.webp';
-import prj4 from '../media/Projects/prj4.webp';
-import prj5 from '../media/Projects/prj5.webp';
-import prj6 from '../media/Projects/prj6.webp';
-import prj7 from '../media/Projects/prj7.webp';
-import prj8 from '../media/Projects/prj8.webp';
+import { mainProjects } from '../data/projects';
 
-const projects = [
-  {
-    id: 1,
-    name: 'Tokensight AI',
-    stack: ['Next Js', 'Tailwind CSS'],
-    description: 'Scan any Solana token in seconds. Analyze liquidity, holder concentration, creator behavior and price momentum with real-time, AI-driven risk signals.',
-    image: prj1,
-    demoLink: 'https://tokensightai.tech/',
-    githubLink: 'https://github.com/mrarindam/TokenSight-Ai'
-  },
-  {
-    id: 2,
-    name: 'Text Editions',
-    stack: ['React Native'],
-    description: 'A robust text-editing utility designed with performance and clean architecture for smooth mobile editing workflows.',
-    image: prj2,
-    demoLink: 'https://arindamk143.github.io/text-edit/',
-    githubLink: 'https://github.com/Arindamk143/text-edit'
-  },
-  {
-    id: 3,
-    name: 'Solar System',
-    stack: ['WebGL', 'Three Js'],
-    description: 'An immersive, fully interactive 3D web experience showcasing the planets with stunning graphics and real-time rendering.',
-    image: prj3,
-    demoLink: 'https://solar-system-ca.web.app/',
-    githubLink: 'https://github.com/Arindamk143/Solar-System'
+gsap.registerPlugin(ScrollTrigger);
 
-  },
-  {
-    id: 4,
-    name: 'Find About You',
-    stack: ['Ip.Api', 'React Native'],
-    description: 'An intuitive mobile application that gathers detailed network and location data to provide comprehensive user insights.',
-    image: prj4,
-    demoLink: 'https://arindamk143.github.io/GetaboutU/',
-    githubLink: 'https://github.com/Arindamk143/GetaboutU'
-  },
-  {
-    id: 5,
-    name: 'Skate Escape',
-    stack: ['React Native', 'Three Js', 'React Three Fiber', 'Vite'],
-    description: 'A high-performance 3D mobile game integrating advanced interactive physics and immersive gameplay concepts.',
-    image: prj5,
-    demoLink: 'https://skate-escape.vercel.app/',
-    githubLink: 'https://github.com/mrarindam/Skate-Escape'
-  },
-  {
-    id: 6,
-    name: 'Typo Tester',
-    stack: ['React Native', 'Ether.Js', 'SupaBase DB', 'Vite', 'Base Ecosystem'],
-    description: 'A Web3-integrated typing test platform built on the Base ecosystem featuring secure database integration and real-time metric tracking.',
-    image: prj6,
-    demoLink: 'https://typotester.vercel.app/',
-    githubLink: 'https://github.com/mrarindam/TypoTester'
-  },
-  {
-    id: 7,
-    name: 'We Say GM',
-    stack: ['React Native', 'Ether.Js', 'Base Ecosystem', 'Vite'],
-    description: 'A clean decentralized application focused on Web3 social interactions, deployed on the Base network for fast, low-cost operations.',
-    image: prj7,
-    demoLink: 'https://saygmlouder.vercel.app/',
-    githubLink: 'https://github.com/mrarindam/'
-  },
-  {
-    id: 8,
-    name: 'KURO THE VOICE ASSISTANCE',
-    stack: ['React Native'],
-    description: 'A cutting-edge AI-driven voice assistant built for seamless mobile experiences, featuring intuitive natural language processing.',
-    image: prj8,
-    demoLink: 'https://arindamk143.github.io/Kuro-Assistance/',
-    githubLink: 'https://github.com/Arindamk143/Kuro-Assistance/'
-  },
-];
+const getProjectGradient = (id) => {
+  switch (id) {
+    case 1:
+      return 'linear-gradient(135deg, #ffffff 0%, #fffbf0 50%, #ffeec2 100%)';
+    case 2:
+      return 'linear-gradient(135deg, #ffffff 0%, #f3effc 50%, #e6dcf7 100%)';
+    case 3:
+      return 'linear-gradient(135deg, #ffffff 0%, #f0f7ff 50%, #dbeeff 100%)';
+    case 4:
+      return 'linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #dcfce7 100%)';
+    case 5:
+      return 'linear-gradient(135deg, #ffffff 0%, #fff7ed 50%, #ffedd5 100%)';
+    default:
+      return 'linear-gradient(135deg, #ffffff 0%, #fff0f3 50%, #ffe5ec 100%)';
+  }
+};
 
 export default function Creations() {
-  const containerRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const sectionRef = useRef(null);
 
-  const handleNext = () => {
-    setDirection(1);
-    setCurrentIndex((prevIndex) => (prevIndex === projects.length - 1 ? 0 : prevIndex + 1));
-  };
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const cards = gsap.utils.toArray('.project-card-wrapper');
+      
+      cards.forEach((card, idx) => {
+        if (idx === cards.length - 1) return; // Do not pin the last card
 
-  const handlePrev = () => {
-    setDirection(-1);
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? projects.length - 1 : prevIndex - 1));
-  };
+        ScrollTrigger.create({
+          trigger: card,
+          pin: true,
+          pinSpacing: false,
+          start: `top ${idx * 30}px`,
+          endTrigger: cards[cards.length - 1],
+          end: `top ${idx * 30}px`,
+          anticipatePin: 1,
+          invalidateOnRefresh: true
+        });
+      });
 
-  const handleDotClick = (index) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
-  };
+      // Trigger for navbar color scheme
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 80px',
+        end: 'bottom top',
+        onEnter: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'creations' })),
+        onLeave: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'home' })),
+        onEnterBack: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'creations' })),
+        onLeaveBack: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'blogs' })),
+      });
+    }, sectionRef);
 
-  const activeProject = projects[currentIndex];
-
-  const variants = {
-    enter: (direction) => {
-      return {
-        x: direction > 0 ? 50 : -50,
-        opacity: 0,
-        scale: 0.95,
-        filter: "blur(10px)"
-      };
-    },
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)"
-    },
-    exit: (direction) => {
-      return {
-        zIndex: 0,
-        x: direction < 0 ? 50 : -50,
-        opacity: 0,
-        scale: 0.95,
-        filter: "blur(10px)"
-      };
-    }
-  };
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <motion.section
+    <section
       id="creations"
       className="creations-section"
-      ref={containerRef}
+      ref={sectionRef}
     >
-      <motion.div
-        initial={{ opacity: 0, filter: "blur(20px)", y: 50 }}
-        whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ margin: "0px", once: false }}
-        className="section-header"
-        style={{ width: '100%', maxWidth: '1200px', display: 'flex', justifyContent: 'center' }}
-      >
-        <h2 className="section-title">MY WORK</h2>
-      </motion.div>
+      <div className="creations-cards-stack">
+        {mainProjects.map((project, idx) => (
+          <div
+            key={project.id}
+            id={`project-card-${project.id}`}
+            className={`project-card-wrapper ${idx === 0 ? 'first-card' : ''}`}
+            style={{
+              zIndex: idx + 1,
+              background: getProjectGradient(project.id)
+            }}
+          >
+            <div className="creations-container">
+              {/* LEFT SIDE: Info */}
+              <div className="project-info">
+                <div className="info-content">
+                  <div className="top-nav-arrows">
+                    <div className="project-number">
+                      {(idx + 1).toString().padStart(2, '0')}
+                    </div>
+                  </div>
+                  <h3 className="project-title">{project.name}</h3>
+                  {project.stack && project.stack.length > 0 && (
+                    <span className="project-tag">{project.stack[0]}</span>
+                  )}
+                  <p className="project-desc">{project.description}</p>
 
-      <div className="creations-container">
-        {/* LEFT SIDE: Info */}
-        <div className="project-info">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeProject.id}
-              className="info-content"
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.3 },
-                scale: { duration: 0.3 }
-              }}
-            >
-
-              <div className="top-nav-arrows" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <button className="nav-btn" onClick={handlePrev} aria-label="Previous Project" style={{ width: '40px', height: '40px' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </button>
-                <div className="project-number" style={{ margin: 0 }}>
-                  {(currentIndex + 1).toString().padStart(2, '0')}
+                  <div className="project-actions">
+                    {project.demoLink && (
+                      <a href={project.demoLink} target="_blank" rel="noopener noreferrer" className="creations-btn btn-primary">
+                        Live Demo
+                      </a>
+                    )}
+                    {project.githubLink && (
+                      <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="creations-btn btn-secondary">
+                        GitHub
+                      </a>
+                    )}
+                    {idx === mainProjects.length - 1 && (
+                      <Link to="/projects" className="creations-btn btn-explore-more">
+                        Explore More &rarr;
+                      </Link>
+                    )}
+                  </div>
                 </div>
-                <button className="nav-btn" onClick={handleNext} aria-label="Next Project" style={{ width: '40px', height: '40px' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </button>
               </div>
-              <h3 className="project-title">{activeProject.name}</h3>
-              {activeProject.stack && activeProject.stack.length > 0 && (
-                <span className="project-tag">{activeProject.stack[0]}</span>
-              )}
-              <p className="project-desc">{activeProject.description}</p>
 
-              <div className="project-actions">
-                {activeProject.demoLink ? (
-                  <a href={activeProject.demoLink} target="_blank" rel="noopener noreferrer" className="creations-btn btn-primary">
-                    Live Demo
-                  </a>
-                ) : (
-                  <button className="creations-btn btn-primary">Live Demo</button>
-                )}
-                {activeProject.githubLink ? (
-                  <a href={activeProject.githubLink} target="_blank" rel="noopener noreferrer" className="creations-btn btn-secondary">
-                    GitHub
-                  </a>
-                ) : (
-                  <button className="creations-btn btn-secondary">GitHub</button>
-                )}
+              {/* RIGHT SIDE: Preview Card */}
+              <div className="preview-container">
+                <div className="preview-card">
+                  <div className="card-glow-pulse"></div>
+                  <div className="preview-card-inner">
+                    {project.image ? (
+                      <img src={project.image} alt={project.name} className="preview-image" loading="lazy" />
+                    ) : (
+                      <div className="preview-image" style={{ background: 'rgba(0,0,0,0.05)' }}></div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* RIGHT SIDE: Preview Card */}
-        <div className="preview-container">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={activeProject.id}
-              className="preview-card"
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.3 },
-                scale: { duration: 0.3 }
-              }}
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.2 }
-              }}
-            >
-              <div className="card-glow-pulse"></div>
-              <div className="preview-card-inner">
-                {activeProject.image ? (
-                  <img src={activeProject.image} alt={activeProject.name} className="preview-image" loading="lazy" />
-                ) : (
-                  <div className="preview-image" style={{ background: 'rgba(255,255,255,0.05)' }}></div>
-                )}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* BOTTOM NAV */}
-        <div className="slider-nav">
-          <div className="slider-dots">
-            {projects.map((_, idx) => (
-              <div
-                key={idx}
-                className={`dot ${idx === currentIndex ? 'active' : ''}`}
-                onClick={() => handleDotClick(idx)}
-              ></div>
-            ))}
+            </div>
           </div>
-
-
-        </div>
-
+        ))}
       </div>
-    </motion.section>
+    </section>
   );
 }

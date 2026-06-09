@@ -1,0 +1,109 @@
+/* ======================================================= */
+/*  EXPLORE PORTFOLIO SECTION (MAWWARDS / APPLE PARALLAX)  */
+/* ======================================================= */
+
+.explore-section {
+  position: relative;
+  width: 100%;
+  height: 180vh;
+  background: #050508;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Masonry Background Parallax - 3 Columns --- */
+.explore-masonry-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 125%; /* Taller to allow parallax bounds */
+  top: -12%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  padding: 0 1.25rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.explore-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  justify-content: flex-start;
+  padding-top: 6vh; /* Starts closer to the curved top edge */
+}
+
+.explore-card {
+  position: relative;
+  width: 100%;
+  height: 65vh; /* Taller vertical size for high-impact presence */
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: transparent; /* No background overlays */
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+.explore-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1; /* Vibrant and opaque as per screenshot */
+  filter: none; /* Ensure no blur or color alterations */
+  display: block;
+}
+
+/* --- Cinematic Vignette Overlay --- */
+.explore-overlay-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(5, 5, 8, 0.05) 0%, rgba(5, 5, 8, 0.3) 60%, #050508 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* --- Floating handwritten cursive SVG text container --- */
+.explore-text-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.explore-svg-text {
+  width: 90%;
+  max-width: 1350px;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(223, 255, 0, 0.95)) drop-shadow(0 0 40px rgba(223, 255, 0, 0.6));
+}
+
+/* --- Responsive Adaptations --- */
+@media (max-width: 768px) {
+  .explore-masonry-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .col-3 {
+    display: none;
+  }
+
+  .explore-card {
+    border-radius: 12px;
+    height: 55vh; /* Uniform tall vertical size on mobile */
+  }
+
+}
