@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { blogs } from '../data/blogs';
+import { Link, useNavigate } from 'react-router-dom';
+import { blogs, toSlug } from '../data/blogs';
 import './Blogs.css';
 
 // Show exactly the 5 most recent blogs
@@ -33,6 +33,7 @@ export default function Blogs() {
   const containerRef = useRef(null);
   const [cardsToShow, setCardsToShow] = useState(3);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -99,7 +100,7 @@ export default function Blogs() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    <Link to={`/blog/${blog.id}`} className="blog-card-link-custom">
+                    <Link to={`/blog/${toSlug(blog.title)}`} className="blog-card-link-custom">
                       <div
                         className="blog-card-thumb-custom"
                         style={{ backgroundImage: `url(${blog.thumbnail})` }}
@@ -165,7 +166,7 @@ export default function Blogs() {
               />
             </div>
             
-            <button className="blogs-list-btn" onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+            <button className="blogs-list-btn" onClick={() => navigate('/blogs')}>
               Blog List
             </button>
           </div>

@@ -8,8 +8,6 @@ import img3 from '../media/graphics/team.webp';
 import img4 from '../media/graphics/ambassador_program.webp';
 
 export default function Footer() {
-  const showcaseImages = [img1, img2, img3, img4];
-
   const handleScrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -18,7 +16,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="main-footer">
+    <footer className="main-footer" data-theme="dark">
       <div className="footer-glow" />
       
       <div className="footer-top">
@@ -29,23 +27,11 @@ export default function Footer() {
         <div className="footer-col">
           <span className="col-header">GENERAL MENU</span>
           <ul className="footer-menu-links">
-            <li><button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>HOME</button></li>
             <li><button onClick={() => handleScrollToSection('creations')}>WORKS</button></li>
             <li><button onClick={() => window.scrollTo({ top: 4000, behavior: 'smooth' })}>ABOUT</button></li>
-            <li><button onClick={() => window.scrollTo({ top: 13400, behavior: 'smooth' })}>BLOGS</button></li>
+            <li><Link to="/blogs">BLOGS</Link></li>
             <li><Link to="/contact">CONTACT</Link></li>
           </ul>
-        </div>
-
-        <div className="footer-col">
-          <span className="col-header">LOCATION</span>
-          <p className="footer-info-text">
-            KOLKATA, WEST BENGAL,<br />
-            INDIA
-          </p>
-          <p className="footer-info-subtext">
-            MONDAY – FRIDAY, 10:00 / 19:00
-          </p>
         </div>
 
         <div className="footer-col">
@@ -59,24 +45,22 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="footer-showcase">
-        <div className="showcase-scroll-container">
-          {showcaseImages.map((img, idx) => (
-            <div key={idx} className="showcase-img-card">
-              <img src={img} alt={`Showcase ${idx + 1}`} className="showcase-img" />
-            </div>
-          ))}
-        </div>
+      <div className="footer-showcase-svg">
+        <svg viewBox="0 0 1000 300" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="year-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ff9e00" />
+              <stop offset="50%" stop-color="#ff3c00" />
+              <stop offset="100%" stop-color="#b100ff" />
+            </linearGradient>
+          </defs>
+          <text x="50%" y="60%" dominantBaseline="middle" textAnchor="middle" fontFamily="'Orbitron', sans-serif" fontWeight="900" fontSize="260" fill="url(#year-gradient)" letterSpacing="15" style={{ filter: 'drop-shadow(0 0 30px rgba(255, 60, 0, 0.45))' }}>2026</text>
+        </svg>
       </div>
 
       <div className="footer-bottom">
         <span className="footer-copy">MR ARINDAM &copy; {new Date().getFullYear()} ALL RIGHTS RESERVED.</span>
         <span className="footer-policy">PRIVACY POLICY</span>
-        <div className="footer-socials">
-          <a href="https://github.com/mrarindam" target="_blank" rel="noopener noreferrer">GITHUB</a>
-          <a href="https://t.me/MrxArindam" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
-          <a href="#" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-        </div>
       </div>
     </footer>
   );

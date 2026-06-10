@@ -1,24 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-/* Scrollbar visibility behavior */
-html::-webkit-scrollbar {
-  width: 8px;
-  background: transparent;
-}
-html::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-html.is-scrolling::-webkit-scrollbar-thumb {
-  background: rgba(255, 158, 0, 0.4);
-}
-html {
-  scrollbar-width: none;
-}
-html.is-scrolling {
-  scrollbar-width: thin;
-}
+
 
 /* Hide scrollbar when menu is active */
 html.nav-active {
@@ -64,11 +46,37 @@ html.nav-active::-webkit-scrollbar {
 .nav-logo-custom {
   font-family: 'Pacifico', cursive;
   font-size: 2.2rem;
-  color: var(--text-primary);
+  color: #ffffff;
   text-decoration: none;
   z-index: 1005;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 4px 15px rgba(0, 0, 0, 0.15);
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.navbar-custom.light-theme .nav-logo-custom {
+  color: #111115;
+}
+
+/* Active Section Indicator next to Menu button */
+.nav-active-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-right: 1.5rem;
+  opacity: 0.85;
+  transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.navbar-custom.light-theme .nav-active-indicator {
+  color: #111115;
+}
+
+.indicator-brackets {
+  opacity: 0.45;
 }
 
 /* Logo */
@@ -205,7 +213,6 @@ html.nav-active::-webkit-scrollbar {
 .mobile-link-item:hover,
 .mobile-link-item.active {
   color: var(--primary-glow);
-  text-shadow: 0 0 15px rgba(255, 158, 0, 0.8);
   transform: scale(1.1);
 }
 
@@ -220,22 +227,32 @@ html.nav-active::-webkit-scrollbar {
   align-items: center;
   justify-content: center;
   background: rgba(3, 3, 8, 0.4);
-  border: 1px solid rgba(255, 158, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   width: 60px;
   height: 60px;
   cursor: pointer;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   z-index: 1005;
   position: relative;
 }
 
 .desktop-menu-toggle:hover {
-  background: rgba(255, 158, 0, 0.1);
-  border-color: var(--primary-glow);
-  box-shadow: 0 0 15px rgba(255, 158, 0, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Light Theme Menu Toggle override */
+.navbar-custom.light-theme .desktop-menu-toggle {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.navbar-custom.light-theme .desktop-menu-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.30);
 }
 
 .desktop-toggle-line-container {
@@ -249,10 +266,14 @@ html.nav-active::-webkit-scrollbar {
 
 .desktop-toggle-line {
   height: 3px;
-  background: var(--text-primary);
+  background: #ffffff;
   border-radius: 3px;
   position: absolute;
-  transition: transform 0.3s ease, background-color 0.5s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-custom.light-theme .desktop-toggle-line {
+  background: #111115;
 }
 
 .desktop-toggle-line.line-top {
@@ -411,7 +432,6 @@ html.nav-active::-webkit-scrollbar {
 .navbar-custom.menu-open .desktop-menu-toggle:hover {
   background: rgba(3, 3, 8, 0.08);
   border-color: rgba(3, 3, 8, 0.5);
-  box-shadow: 0 0 15px rgba(3, 3, 8, 0.15);
 }
 
 /* Responsiveness */

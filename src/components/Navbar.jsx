@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useNavbarTheme from '../hooks/useNavbarTheme';
 import './Navbar.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,7 +57,6 @@ const TextRoll = ({ text }) => {
 };
 
 const navItems = [
-  { label: 'Home', id: 'home' },
   { label: 'About', id: 'about' },
   { label: 'Blogs', id: 'blogs' },
   { label: 'Creations', id: 'creations' },
@@ -132,23 +132,6 @@ export default function Navbar() {
     };
   }, [isDesktopOpen, lenis]);
 
-  // Show scrollbar only when scrolling
-  useEffect(() => {
-    let scrollTimeout;
-    const handleScrollActive = () => {
-      document.documentElement.classList.add('is-scrolling');
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        document.documentElement.classList.remove('is-scrolling');
-      }, 1000);
-    };
-    window.addEventListener('scroll', handleScrollActive);
-    return () => {
-      window.removeEventListener('scroll', handleScrollActive);
-      clearTimeout(scrollTimeout);
-    };
-  }, []);
-
   // Track scroll position to add class to navbar
   useEffect(() => {
     const handleScroll = () => {
@@ -223,11 +206,7 @@ export default function Navbar() {
     }
 
     if (id === 'blogs') {
-      // Scroll to 13400 to show the fully revealed Blogs panel
-      window.scrollTo({
-        top: 13400,
-        behavior: 'smooth'
-      });
+      navigate('/blogs');
       return;
     }
 
@@ -266,19 +245,32 @@ export default function Navbar() {
     open: { width: "32px", x: 0, rotate: -45, y: -6 }
   };
 
-  const isLightTheme = location.pathname === '/' && (_activeSection === 'about' || _activeSection === 'creations');
+  const navbarTheme = useNavbarTheme();
+  const isLightTheme = navbarTheme === 'light';
 
   return (
     <>
-      <nav className={`navbar-custom ${scrolled ? 'scrolled' : ''} ${isDesktopOpen ? 'menu-open' : ''} ${isLightTheme ? 'light-theme' : ''}`}>
+      <motion.nav
+        className={`navbar-custom ${scrolled ? 'scrolled' : ''} ${isDesktopOpen ? 'menu-open' : ''} ${isLightTheme ? 'light-theme' : ''}`}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+      >
         <div className="navbar-container">
           {/* Logo/Brand */}
           <a href="#home" className="nav-logo-custom" onClick={(e) => handleNavClick(e, 'home')}>
             Mr Arindam
           </a>
 
-          {/* Toggle Button for All Devices */}
-          <div className="nav-toggle-custom">
+          {/* Toggle Button & Active Section Indicator for All Devices */}
+          <div className="nav-toggle-custom" style={{ display: 'flex', alignItems: 'center' }}>
+            {_activeSection && (
+              <span className="nav-active-indicator">
+                <span className="indicator-brackets">[</span>
+                <span className="indicator-text">{_activeSection.toUpperCase()}</span>
+                <span className="indicator-brackets">]</span>
+              </span>
+            )}
             <motion.button
               className="desktop-menu-toggle"
               onClick={() => setIsDesktopOpen(!isDesktopOpen)}
@@ -302,7 +294,7 @@ export default function Navbar() {
             </motion.button>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Fullscreen Overlay for All Devices */}
       <AnimatePresence>

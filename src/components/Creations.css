@@ -389,17 +389,33 @@
 /* ===================== */
 @media (max-width: 768px) {
   .creations-section {
-    padding: 4rem 1.25rem;
+    padding: 0;
     min-height: auto;
+    overflow: visible;
+  }
+
+  .project-card-wrapper {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    will-change: transform;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+  }
+
+  .project-card-wrapper.first-card {
+    margin-top: 0;
   }
 
   .creations-container {
     flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
-    max-width: 400px;
+    justify-content: center;
+    height: 100vh;
+    gap: 1.5rem;
+    max-width: 440px;
     margin-left: auto;
     margin-right: auto;
+    padding: 2rem 1.25rem;
   }
 
   /* Mobile stacking order: card -> info -> nav */
@@ -538,12 +554,13 @@
 /* ===================== */
 @media (max-width: 480px) {
   .creations-section {
-    padding: 3rem 1rem;
+    padding: 0;
   }
 
   .creations-container {
     max-width: 340px;
-    gap: 1.5rem;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .project-title {

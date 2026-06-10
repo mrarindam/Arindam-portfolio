@@ -11,7 +11,7 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="contact-page-wrapper">
+    <div className="contact-page-wrapper" data-theme="dark">
       <div className="contact-page-header">
         <button className="contact-back-btn" onClick={() => navigate('/')}>
           &larr; Back to Home

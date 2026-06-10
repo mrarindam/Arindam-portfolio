@@ -1,6 +1,7 @@
-import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ReactLenis } from 'lenis/react';
+import React, { useState, useEffect, useLayoutEffect, Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { ReactLenis, useLenis } from 'lenis/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BlogPage from './pages/BlogPage';
@@ -8,11 +9,12 @@ import './index.css';
 
 import ExplorePortfolio from './components/ExplorePortfolio';
 
-const About = lazy(() => import('./components/About'));
-const Creations = lazy(() => import('./components/Creations'));
-const Footer = lazy(() => import('./components/Footer'));
+import About from './components/About';
+import Creations from './components/Creations';
+import Footer from './components/Footer';
 const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
+const BlogsPage = lazy(() => import('./pages/BlogsPage'));
 
 function HomePage() {
   return (
@@ -31,25 +33,59 @@ function HomePage() {
   );
 }
 
-export default function App() {
+function AnimatedRoutes() {
+  const location = useLocation();
+  const lenis = useLenis();
+
+  // Track scroll position on home page
   useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-    window.history.replaceState(null, '', window.location.pathname + window.location.search);
-    window.scrollTo(0, 0);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.location.pathname === '/') {
+            sessionStorage.setItem('homeScrollY', window.scrollY);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Ensure non-home pages are immediately visible and reset scroll to top
+  useLayoutEffect(() => {
+    if (location.pathname !== '/') {
+      document.documentElement.style.opacity = '1';
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, [location.pathname, lenis]);
+
+  return (
+    <div style={{ position: 'relative', width: '100%' }}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/blog/:slug" element={<BlogPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default function App() {
   return (
     <BrowserRouter>
       <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
         <Suspense fallback={<div style={{ height: '100vh', background: '#000' }} />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/blog/:id" element={<BlogPage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
+          <AnimatedRoutes />
         </Suspense>
       </ReactLenis>
     </BrowserRouter>

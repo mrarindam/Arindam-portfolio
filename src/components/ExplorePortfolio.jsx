@@ -66,48 +66,51 @@ export default function ExplorePortfolio() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="explore-transition" className="explore-section">
-      {/* Dynamic Masonry Background Grid - 3 Columns */}
-      <div className="explore-masonry-grid">
-        <div ref={col1Ref} className="explore-col col-1">
-          <div className="explore-card">
-            <img src={img1} alt="Graphic 1" loading="lazy" />
+    <section ref={sectionRef} id="explore-transition" className="explore-section" data-theme="dark">
+      {/* Wrapper to clip column overflow so explore-section can use overflow: visible for position: sticky */}
+      <div className="explore-grid-wrapper">
+        {/* Dynamic Masonry Background Grid - 3 Columns */}
+        <div className="explore-masonry-grid">
+          <div ref={col1Ref} className="explore-col col-1">
+            <div className="explore-card">
+              <img src={img1} alt="Graphic 1" loading="lazy" />
+            </div>
+            <div className="explore-card">
+              <img src={img4} alt="Graphic 4" loading="lazy" />
+            </div>
+            <div className="explore-card">
+              <img src={img7} alt="Graphic 7" loading="lazy" />
+            </div>
           </div>
-          <div className="explore-card">
-            <img src={img4} alt="Graphic 4" loading="lazy" />
+          
+          <div ref={col2Ref} className="explore-col col-2">
+            <div className="explore-card">
+              <img src={img2} alt="Graphic 2" loading="lazy" />
+            </div>
+            <div className="explore-card">
+              <img src={img5} alt="Graphic 5" loading="lazy" />
+            </div>
+            <div className="explore-card">
+              <img src={img8} alt="Graphic 8" loading="lazy" />
+            </div>
           </div>
-          <div className="explore-card">
-            <img src={img7} alt="Graphic 7" loading="lazy" />
-          </div>
-        </div>
-        
-        <div ref={col2Ref} className="explore-col col-2">
-          <div className="explore-card">
-            <img src={img2} alt="Graphic 2" loading="lazy" />
-          </div>
-          <div className="explore-card">
-            <img src={img5} alt="Graphic 5" loading="lazy" />
-          </div>
-          <div className="explore-card">
-            <img src={img8} alt="Graphic 8" loading="lazy" />
+
+          <div ref={col3Ref} className="explore-col col-3">
+            <div className="explore-card">
+              <img src={img3} alt="Graphic 3" loading="lazy" />
+            </div>
+            <div className="explore-card">
+              <img src={img6} alt="Graphic 6" loading="lazy" />
+            </div>
+            <div className="explore-card">
+              <img src={img9} alt="Graphic 9" loading="lazy" />
+            </div>
           </div>
         </div>
 
-        <div ref={col3Ref} className="explore-col col-3">
-          <div className="explore-card">
-            <img src={img3} alt="Graphic 3" loading="lazy" />
-          </div>
-          <div className="explore-card">
-            <img src={img6} alt="Graphic 6" loading="lazy" />
-          </div>
-          <div className="explore-card">
-            <img src={img9} alt="Graphic 9" loading="lazy" />
-          </div>
-        </div>
+        {/* Cinematic Vignette Overlay */}
+        <div className="explore-overlay-vignette" />
       </div>
-
-      {/* Cinematic Vignette Overlay */}
-      <div className="explore-overlay-vignette" />
 
       {/* Floating handwritten cursive SVG text container */}
       <div className="explore-text-container">

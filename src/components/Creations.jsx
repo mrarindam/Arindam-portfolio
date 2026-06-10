@@ -29,7 +29,10 @@ export default function Creations() {
   const sectionRef = useRef(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // Pinning cards on desktop only to eliminate heavy scroll lag on mobile viewports
+    mm.add("(min-width: 769px)", () => {
       const cards = gsap.utils.toArray('.project-card-wrapper');
       
       cards.forEach((card, idx) => {
@@ -46,8 +49,10 @@ export default function Creations() {
           invalidateOnRefresh: true
         });
       });
+    });
 
-      // Trigger for navbar color scheme
+    // Global ScrollTrigger for active section tracking
+    const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 80px',
@@ -59,7 +64,10 @@ export default function Creations() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      mm.revert();
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -67,6 +75,7 @@ export default function Creations() {
       id="creations"
       className="creations-section"
       ref={sectionRef}
+      data-theme="light"
     >
       <div className="creations-cards-stack">
         {mainProjects.map((project, idx) => (
@@ -76,7 +85,8 @@ export default function Creations() {
             className={`project-card-wrapper ${idx === 0 ? 'first-card' : ''}`}
             style={{
               zIndex: idx + 1,
-              background: getProjectGradient(project.id)
+              background: getProjectGradient(project.id),
+              '--stack-offset': `${idx * 20}px`
             }}
           >
             <div className="creations-container">

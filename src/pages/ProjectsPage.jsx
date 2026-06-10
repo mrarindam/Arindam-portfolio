@@ -13,7 +13,7 @@ export default function ProjectsPage() {
   }, []);
 
   return (
-    <div className="projects-page-wrapper">
+    <div className="projects-page-wrapper" data-theme="dark">
       <div className="projects-page-gradient" />
       
       <motion.div 

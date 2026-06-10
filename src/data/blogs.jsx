@@ -9,6 +9,13 @@ import adsJpg from '../media/ads.webp';
 import exampleClick from '../media/exampleClick.webp';
 import chromeTension from '../media/chrometention.webp';
 
+export const toSlug = (title) => {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
+};
+
 export const blogs = [
   {
     id: 1,

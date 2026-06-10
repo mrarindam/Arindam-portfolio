@@ -35,9 +35,7 @@ export default function Hero() {
   const blogsWrapperRef = useRef(null);
 
   useLayoutEffect(() => {
-    // Force scroll to top and refresh ScrollTrigger so the page always
-    // starts at the very beginning of the timeline on reload
-    window.scrollTo(0, 0);
+    // Refresh ScrollTrigger so the page calculations are updated on reload
     ScrollTrigger.refresh();
 
     // Phones get a smaller, centered image so the stacked About title
@@ -46,33 +44,33 @@ export default function Hero() {
     const isCompact = window.matchMedia("(max-width: 768px)").matches;
     const imageTarget = isCompact
       ? {
-          width: "60vw",
-          height: "38vh",
-          minWidth: "0px",
-          minHeight: "0px",
-          maxWidth: "360px",
-          maxHeight: "420px",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: "8px",
-          scale: 1,
-        }
+        width: "60vw",
+        height: "38vh",
+        minWidth: "0px",
+        minHeight: "0px",
+        maxWidth: "360px",
+        maxHeight: "420px",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        borderRadius: "8px",
+        scale: 1,
+      }
       : {
-          width: "32vw",
-          height: "54vh",
-          minWidth: "350px",
-          minHeight: "450px",
-          maxWidth: "500px",
-          maxHeight: "600px",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: "8px",
-          scale: 1,
-        };
+        width: "32vw",
+        height: "54vh",
+        minWidth: "350px",
+        minHeight: "450px",
+        maxWidth: "500px",
+        maxHeight: "600px",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        borderRadius: "8px",
+        scale: 1,
+      };
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -86,12 +84,21 @@ export default function Hero() {
           onUpdate: (self) => {
             // self.progress ranges from 0 to 1.
             let active = 'home';
+            let theme = 'dark';
             if (self.progress >= 0.293 && self.progress < 0.879) {
               active = 'about';
+              theme = 'light';
             } else if (self.progress >= 0.879) {
               active = 'blogs';
+              theme = 'light';
+            } else {
+              active = 'home';
+              theme = 'dark';
             }
             window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: active }));
+            if (containerRef.current) {
+              containerRef.current.setAttribute('data-theme', theme);
+            }
           }
         }
       });
@@ -246,21 +253,48 @@ export default function Hero() {
 
     }, containerRef);
 
+    // Read the saved scroll position
+    const savedY = sessionStorage.getItem('homeScrollY');
+    if (savedY) {
+      const targetY = parseInt(savedY, 10);
+
+      // Force initial scroll position before refresh
+      window.scrollTo(0, targetY);
+      ScrollTrigger.refresh();
+
+      // Keep scroll locked over a few frames so Lenis doesn't hijack and reset it to 0
+      let frameCount = 0;
+      const forceScroll = () => {
+        window.scrollTo(0, targetY);
+        if (frameCount < 10) {
+          frameCount++;
+          requestAnimationFrame(forceScroll);
+        } else {
+          ScrollTrigger.refresh();
+          document.documentElement.style.opacity = '1';
+        }
+      };
+      forceScroll();
+    } else {
+      document.documentElement.style.opacity = '1';
+    }
+
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={containerRef} id="home" className="hero-gsap-section">
+    <div ref={containerRef} id="home" className="hero-gsap-section" data-theme="dark">
       <div className="hero-viewport">
 
         {/* Cinematic Backgrounds */}
         <div ref={bg1Ref} className="hero-bg-layer" style={{ backgroundImage: "var(--hero-bg-1)", zIndex: 1 }} />
         <div ref={bg2Ref} className="hero-bg-layer" style={{ backgroundImage: "var(--hero-bg-2)", zIndex: 1, opacity: 0 }} />
-        
+
         {/* bg3 is styled with absolute positioning properties so it can shrink cleanly */}
-        <div ref={bg3Ref} className="hero-bg-layer" style={{ 
-          backgroundImage: "var(--hero-bg-3)", 
-          zIndex: 4, 
+        <div ref={bg3Ref} className="hero-bg-layer" style={{
+          backgroundImage: "var(--hero-bg-3)",
+          zIndex: 4,
           opacity: 0,
           position: "absolute",
           transformOrigin: "center center"
@@ -268,7 +302,7 @@ export default function Hero() {
 
         {/* Overlays */}
         <div ref={vignetteRef} className="hero-vignette" />
-        
+
         {/* Soft light transition background layer */}
         <div ref={transitionBgRef} className="about-transition-bg" />
 
@@ -303,7 +337,7 @@ export default function Hero() {
         {/* --- ABOUT COLLAGE OVERLAY --- */}
         <div ref={aboutOverlayRef} className="about-collage-overlay">
           <div ref={trackRef} className="about-horizontal-track">
-            
+
             {/* Panel 1: About Me (Original Layout) */}
             <div className="about-panel panel-1">
               <div className="about-collage-container">
