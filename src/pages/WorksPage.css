@@ -1,0 +1,305 @@
+.projects-page-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: #030308;
+  color: #ffffff;
+  padding: 8rem 0 4rem;
+  overflow: hidden;
+}
+
+.projects-page-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 4rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.projects-header {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.projects-page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 100%;
+  display: block;
+}
+
+.title-underline-container {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem auto 2.5rem;
+}
+
+.projects-page-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.15rem;
+  max-width: 850px;
+  line-height: 1.8;
+  margin: 0 auto 2.5rem;
+}
+
+/* Category Filters Styling */
+.works-category-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.6rem 1.6rem;
+  border-radius: 30px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: visible;
+}
+
+.filter-btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.filter-btn.active {
+  color: #030308;
+  border-color: transparent;
+  background: transparent;
+}
+
+/* Projects Grid Layout */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  width: 100%;
+}
+
+/* Individual Project Card - Light Yellow-White Theme */
+.small-project-card {
+  background: linear-gradient(135deg, #ffffff 0%, #fffdf4 60%, #fff9e6 100%);
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+  color: #0a0a0f;
+}
+
+.small-project-card:hover {
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+  transform: translateY(-8px);
+}
+
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  background: #111118;
+  overflow: hidden;
+}
+
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.small-project-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.3);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+}
+
+.card-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e68a00;
+  letter-spacing: 1px;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+.card-content {
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Category Label inside Card */
+.card-category-tag {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e68a00;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.card-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #030308;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.card-desc {
+  color: #44444f;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.card-stack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.tech-tag {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #0a0a0f;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.card-actions {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.card-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-btn.btn-demo {
+  background: #030308;
+  color: #ffffff;
+  border: 1px solid #030308;
+}
+
+.card-btn.btn-demo:hover {
+  background: transparent;
+  color: #030308;
+}
+
+.card-btn.btn-github {
+  background: rgba(0, 0, 0, 0.04);
+  color: #0a0a0f;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.card-btn.btn-github:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .projects-page-container {
+    padding: 0 2rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-page-wrapper {
+    padding: 6rem 0 3rem;
+  }
+  
+  .projects-page-container {
+    padding: 0 1.5rem;
+  }
+
+  .projects-page-title {
+    font-size: 2.5rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+  
+  .works-category-filters {
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}

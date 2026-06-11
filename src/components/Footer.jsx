@@ -2,18 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
-import img1 from '../media/graphics/community_management.webp';
-import img2 from '../media/graphics/marketing_support.webp';
-import img3 from '../media/graphics/team.webp';
-import img4 from '../media/graphics/ambassador_program.webp';
-
 export default function Footer() {
-  const handleScrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <footer className="main-footer" data-theme="dark">
@@ -27,7 +16,7 @@ export default function Footer() {
         <div className="footer-col">
           <span className="col-header">GENERAL MENU</span>
           <ul className="footer-menu-links">
-            <li><button onClick={() => handleScrollToSection('creations')}>WORKS</button></li>
+            <li><Link to="/works">WORKS</Link></li>
             <li><button onClick={() => window.scrollTo({ top: 4000, behavior: 'smooth' })}>ABOUT</button></li>
             <li><Link to="/blogs">BLOGS</Link></li>
             <li><Link to="/contact">CONTACT</Link></li>

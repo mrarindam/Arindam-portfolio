@@ -62,8 +62,9 @@ const ContactNode = ({ icon: Icon, label, href, delay, x, y, isMobile }) => {
   );
 };
 
-export default function Contact() {
+export default function Contact({ forceActive }) {
   const containerRef = useRef(null);
+  const animationRef = useRef(null);
   const [phase, setPhase] = useState("idle");
   const [isMobile, setIsMobile] = useState(false);
   // A unique key that increments each time we re-enter, forcing React to
@@ -86,28 +87,36 @@ export default function Contact() {
 
   // Play the synthesised impact sound
   const playSound = useCallback(() => {
-    try {
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.5);
-      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-      gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.1);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 0.5);
-    } catch (_) {
-      // AudioContext may fail silently on some browsers
-    }
+    // Sound disabled
   }, []);
 
-  // Manual IntersectionObserver — fires on EVERY enter & leave
+  // Control animation sequence via prop or IntersectionObserver
   useEffect(() => {
-    const el = containerRef.current;
+    if (forceActive !== undefined) {
+      if (forceActive) {
+        clearTimers();
+        const t0 = setTimeout(() => {
+          setPhase("falling");
+          playSound();
+
+          const t1 = setTimeout(() => {
+            setPhase("impact");
+            const t2 = setTimeout(() => setPhase("split"), 400);
+            timersRef.current.push(t2);
+          }, 800);
+          timersRef.current.push(t1);
+        }, 150);
+        timersRef.current.push(t0);
+      } else {
+        clearTimers();
+        setPhase("idle");
+        setAnimKey((k) => k + 1);
+      }
+      return () => clearTimers();
+    }
+
+    // Fallback Manual IntersectionObserver — fires on EVERY enter & leave
+    const el = animationRef.current;
     if (!el) return;
 
     const observer = new IntersectionObserver(
@@ -143,7 +152,7 @@ export default function Contact() {
       observer.disconnect();
       clearTimers();
     };
-  }, [clearTimers, playSound]);
+  }, [forceActive, clearTimers, playSound]);
 
   const nodes = [
     { icon: GithubIcon, label: "GitHub", href: "https://github.com/mrarindam", x: -120, y: -60, delay: 0.1 },
@@ -157,10 +166,6 @@ export default function Contact() {
       <div className="contact-background-particles" />
 
       <div className="contact-scene">
-        <div className="contact-header">
-          <h2>CONNECT</h2>
-        </div>
-
         <div className="contact-intro">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
@@ -169,7 +174,7 @@ export default function Contact() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="intro-title"
           >
-            Hi, I’m <span className="name-highlight">Arindam</span> — a passionate <span className="keyword-highlight">web developer</span> with a strong foundation in <span className="keyword-highlight">modern technologies</span>.
+            Hi, I’m Arindam — a passionate web developer with a strong foundation in modern technologies.
           </motion.h1>
 
           <motion.p
@@ -179,7 +184,7 @@ export default function Contact() {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="intro-text secondary"
           >
-            I’ve been coding since 2021, building dynamic, <span className="keyword-highlight">scalable</span>, and <span className="keyword-highlight">high-performance</span> web applications using JavaScript, React.js, Node.js, and Python.
+            I’ve been coding since 2021, building dynamic, scalable, and high-performance web applications using JavaScript, React.js, Node.js, and Python.
           </motion.p>
 
           <motion.p
@@ -189,12 +194,12 @@ export default function Contact() {
             transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             className="intro-text tertiary"
           >
-            Since 2026, I’ve been focused on advanced development practices — optimizing performance, refining architecture, and creating seamless <span className="keyword-highlight">user experiences</span>.
+            Since 2026, I’ve been focused on advanced development practices — optimizing performance, refining architecture, and creating seamless user experiences.
           </motion.p>
         </div>
 
         {/* key={animKey} forces a full remount so framer-motion replays initial→animate */}
-        <div className="animation-center" key={animKey}>
+        <div ref={animationRef} className="animation-center" key={animKey}>
           {/* Phase 1: Falling Orb */}
           {(phase === "falling" || phase === "idle") && (
             <motion.div

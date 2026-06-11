@@ -59,7 +59,7 @@ const TextRoll = ({ text }) => {
 const navItems = [
   { label: 'About', id: 'about' },
   { label: 'Blogs', id: 'blogs' },
-  { label: 'Creations', id: 'creations' },
+  { label: 'Works', id: 'works' },
   { label: 'Contact', id: 'contact' }
 ];
 
@@ -191,6 +191,16 @@ export default function Navbar() {
       return;
     }
 
+    if (id === 'blogs') {
+      navigate('/blogs');
+      return;
+    }
+
+    if (id === 'works') {
+      navigate('/works');
+      return;
+    }
+
     if (window.location.pathname !== '/') {
       navigate('/', { state: { scrollTo: id } });
       return;
@@ -202,11 +212,6 @@ export default function Navbar() {
         top: 4000,
         behavior: 'smooth'
       });
-      return;
-    }
-
-    if (id === 'blogs') {
-      navigate('/blogs');
       return;
     }
 
@@ -264,13 +269,6 @@ export default function Navbar() {
 
           {/* Toggle Button & Active Section Indicator for All Devices */}
           <div className="nav-toggle-custom" style={{ display: 'flex', alignItems: 'center' }}>
-            {_activeSection && (
-              <span className="nav-active-indicator">
-                <span className="indicator-brackets">[</span>
-                <span className="indicator-text">{_activeSection.toUpperCase()}</span>
-                <span className="indicator-brackets">]</span>
-              </span>
-            )}
             <motion.button
               className="desktop-menu-toggle"
               onClick={() => setIsDesktopOpen(!isDesktopOpen)}

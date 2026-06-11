@@ -38,7 +38,7 @@ export default function BlogsPage() {
     <motion.div 
       className="blogs-page-wrapper"
       data-theme="light"
-      initial={{ x: "100%", opacity: 0.9 }}
+      initial={{ x: "-100%", opacity: 0.9 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100%", opacity: 0.9 }}
       transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}

@@ -116,7 +116,7 @@ export default function Creations() {
                       </a>
                     )}
                     {idx === mainProjects.length - 1 && (
-                      <Link to="/projects" className="creations-btn btn-explore-more">
+                      <Link to="/works" className="creations-btn btn-explore-more">
                         Explore More &rarr;
                       </Link>
                     )}

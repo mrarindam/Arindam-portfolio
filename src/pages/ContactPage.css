@@ -1,42 +1,72 @@
 .contact-page-wrapper {
-  min-height: 100vh;
   width: 100%;
-  background-color: #030308;
   position: relative;
-  padding-top: 2rem;
+  background: #030308; /* Background defaults to black to avoid flashes */
+}
+
+/* SECTION 1: ZOOM SECTION */
+.contact-zoom-section {
+  position: relative;
+  height: 100vh; /* Matches viewport height exactly to prevent scrollbar jumping */
+  width: 100%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffffff 0%, #fffdf4 60%, #fff9e6 100%);
+  z-index: 10;
 }
 
-.contact-page-header {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 5%;
+/* Transitions background to solid black on scroll */
+.black-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #030308;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.zoom-svg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.zoom-svg-text {
+  width: 90%;
+  max-width: 1400px;
+  height: auto;
+  user-select: none;
+}
+
+/* SECTION 2: INFORMATION CONTENT SECTION */
+.contact-details-section {
   position: relative;
-  z-index: 100;
-}
-
-.contact-back-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  padding: 0.6rem 1.5rem;
-  border-radius: 30px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.contact-back-btn:hover {
-  background: #ff9e00;
-  color: #000000;
-  border-color: #ff9e00;
-  box-shadow: 0 0 15px rgba(255, 158, 0, 0.4);
+  width: 100%;
+  min-height: 100vh;
+  background: #030308;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 0; /* Padding for nice spacing on scroll */
 }
 
 @media (max-width: 768px) {
-  .contact-page-wrapper {
-    padding-top: 1.5rem;
+  .zoom-svg-text {
+    width: 95%;
+  }
+  
+  .contact-details-section {
+    padding: 6rem 0;
   }
 }

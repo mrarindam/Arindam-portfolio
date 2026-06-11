@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useLayoutEffect, Suspense, lazy } from 'react';
+import React, { useEffect, useLayoutEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ReactLenis, useLenis } from 'lenis/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BlogPage from './pages/BlogPage';
@@ -12,7 +14,10 @@ import ExplorePortfolio from './components/ExplorePortfolio';
 import About from './components/About';
 import Creations from './components/Creations';
 import Footer from './components/Footer';
-const ProjectsPage = lazy(() => import('./pages/ProjectsPage'));
+
+gsap.registerPlugin(ScrollTrigger);
+
+const WorksPage = lazy(() => import('./pages/WorksPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const BlogsPage = lazy(() => import('./pages/BlogsPage'));
 
@@ -36,6 +41,23 @@ function HomePage() {
 function AnimatedRoutes() {
   const location = useLocation();
   const lenis = useLenis();
+
+  // Global GSAP ticker sync with Lenis scrolling
+  useEffect(() => {
+    if (!lenis) return;
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    const updateLenisRAF = (time) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(updateLenisRAF);
+
+    return () => {
+      lenis.off('scroll', ScrollTrigger.update);
+      gsap.ticker.remove(updateLenisRAF);
+    };
+  }, [lenis]);
 
   // Track scroll position on home page
   useEffect(() => {
@@ -73,7 +95,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/blogs" element={<BlogsPage />} />
         <Route path="/blog/:slug" element={<BlogPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/works" element={<WorksPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </div>
@@ -83,11 +105,11 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ReactLenis root options={{ lerp: 0.05, smoothWheel: true }}>
+      <ReactLenis root autoRaf={false} options={{ lerp: 0.05, smoothWheel: true }}>
         <Suspense fallback={<div style={{ height: '100vh', background: '#000' }} />}>
           <AnimatedRoutes />
         </Suspense>
       </ReactLenis>
     </BrowserRouter>
   );
-}
+}
