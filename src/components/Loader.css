@@ -1,0 +1,71 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffb703; /* Vibrant golden yellow background */
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-percentage {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(4rem, 12vw, 7.5rem); /* Extra large bold percentage layout */
+  font-weight: 900;
+  color: #111115;
+  line-height: 0.9;
+  margin-bottom: 2rem;
+  letter-spacing: -2px;
+  user-select: none;
+}
+
+.loader-text-wrapper {
+  position: relative;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Scaled down slightly to highlight percentage */
+  font-weight: 900;
+  letter-spacing: 12px;
+  line-height: 1;
+  user-select: none;
+  padding: 10px;
+}
+
+.loader-text {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: uppercase;
+}
+
+.bg-text {
+  color: rgba(17, 17, 21, 0.1); /* Subtle outline ghost text */
+}
+
+.loader-text-fill-container {
+  position: absolute;
+  bottom: 10px; /* Matching wrapper padding */
+  left: 10px;
+  width: 100%;
+  height: 0%; /* Animates from 0% to 100% */
+  overflow: hidden;
+}
+
+.fg-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #111115; /* Charcoal black text */
+  white-space: nowrap;
+}

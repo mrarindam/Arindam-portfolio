@@ -11,9 +11,6 @@
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
-      if (window.location.pathname === '/' && sessionStorage.getItem('homeScrollY') > 0) {
-        document.documentElement.style.opacity = '0';
-      }
     } catch (e) {}
   </script>
 </head>

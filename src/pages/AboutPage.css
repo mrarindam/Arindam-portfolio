@@ -1,0 +1,101 @@
+.about-page-wrapper {
+  width: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.about-page-wrapper .about-animation-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.about-page-wrapper .about-transition-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 1;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+}
+
+.about-page-wrapper .about-main-image-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32vw;
+  height: 54vh;
+  min-width: 350px;
+  min-height: 450px;
+  max-width: 500px;
+  max-height: 600px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.about-page-wrapper .about-main-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background-image: var(--hero-bg-3);
+  background-size: cover;
+  background-position: 80% center;
+  box-shadow: 0 15px 45px rgba(3, 3, 8, 0.12);
+}
+
+.about-page-wrapper .about-horizontal-track {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  width: 400vw !important;
+  min-width: 400vw !important;
+  max-width: 400vw !important;
+  height: 100% !important;
+  will-change: transform;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto !important;
+}
+
+.about-page-wrapper .about-panel {
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  max-height: 100vh !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative;
+  padding: 2rem;
+  box-sizing: border-box;
+  pointer-events: auto !important;
+}
+
+.about-page-wrapper .about-collage-container {
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
+}
+
+.about-page-wrapper .about-main-title {
+  font-size: clamp(3.2rem, 5.5vw, 5.2rem) !important;
+}
+
+@media (max-width: 768px) {
+  .about-page-wrapper .about-main-image-container {
+    width: 60vw !important;
+    height: 38vh !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    max-width: 360px !important;
+    max-height: 420px !important;
+  }
+
+  .about-page-wrapper .about-main-image {
+    box-shadow: 0 8px 25px rgba(3, 3, 8, 0.15);
+  }
+}

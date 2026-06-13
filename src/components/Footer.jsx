@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
-
 export default function Footer() {
-
   return (
     <footer className="main-footer" data-theme="dark">
       <div className="footer-glow" />
@@ -17,7 +15,7 @@ export default function Footer() {
           <span className="col-header">GENERAL MENU</span>
           <ul className="footer-menu-links">
             <li><Link to="/works">WORKS</Link></li>
-            <li><button onClick={() => window.scrollTo({ top: 4000, behavior: 'smooth' })}>ABOUT</button></li>
+            <li><Link to="/about">ABOUT</Link></li>
             <li><Link to="/blogs">BLOGS</Link></li>
             <li><Link to="/contact">CONTACT</Link></li>
           </ul>
@@ -35,12 +33,12 @@ export default function Footer() {
       </div>
 
       <div className="footer-showcase-svg">
-        <svg viewBox="0 0 1000 300" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 1000 300" width="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="year-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ff9e00" />
-              <stop offset="50%" stop-color="#ff3c00" />
-              <stop offset="100%" stop-color="#b100ff" />
+              <stop offset="0%" stopColor="#ff9e00" />
+              <stop offset="50%" stopColor="#ff3c00" />
+              <stop offset="100%" stopColor="#b100ff" />
             </linearGradient>
           </defs>
           <text x="50%" y="60%" dominantBaseline="middle" textAnchor="middle" fontFamily="'Orbitron', sans-serif" fontWeight="900" fontSize="260" fill="url(#year-gradient)" letterSpacing="15" style={{ filter: 'drop-shadow(0 0 30px rgba(255, 60, 0, 0.45))' }}>2026</text>

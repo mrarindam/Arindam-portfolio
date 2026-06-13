@@ -42,7 +42,7 @@ export default function WorksPage() {
         transition={{ duration: 0.6 }}
       >
         <div className="projects-header">
-          <h1 className="projects-page-title">MY WORK</h1>
+          <h1 className="projects-page-title">My Work</h1>
           <div className="title-underline-container">
             <svg width="220" height="12" viewBox="0 0 220 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4 8 C 50 2, 170 10, 216 4" stroke="#ff9e00" strokeWidth="4" strokeLinecap="round" />

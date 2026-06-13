@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 .blogs-page-wrapper {
   background-color: #ffffff;
   color: #111115;
@@ -54,9 +56,9 @@
 }
 
 .blogs-page-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
-  font-weight: 800;
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  font-weight: 500;
   color: #111115;
   margin-bottom: 3rem;
   text-align: left;

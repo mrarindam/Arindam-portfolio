@@ -80,29 +80,45 @@ export default function Navbar() {
 
       setTimeout(() => {
         if (id === 'about') {
-          window.scrollTo({ top: 4000, behavior: 'smooth' });
+          if (lenis) {
+            lenis.scrollTo(4000);
+          } else {
+            window.scrollTo({ top: 4000, behavior: 'smooth' });
+          }
         } else if (id === 'blogs') {
-          window.scrollTo({ top: 13400, behavior: 'smooth' });
+          if (lenis) {
+            lenis.scrollTo(13400);
+          } else {
+            window.scrollTo({ top: 13400, behavior: 'smooth' });
+          }
         } else if (id === 'home') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (lenis) {
+            lenis.scrollTo(0);
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         } else {
           const element = document.getElementById(id);
           if (element) {
-            const offset = 80;
-            const bodyRect = document.body.getBoundingClientRect().top;
-            const elementRect = element.getBoundingClientRect().top;
-            const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
+            if (lenis) {
+              lenis.scrollTo(element, { offset: -80 });
+            } else {
+              const offset = 80;
+              const bodyRect = document.body.getBoundingClientRect().top;
+              const elementRect = element.getBoundingClientRect().top;
+              const elementPosition = elementRect - bodyRect;
+              const offsetPosition = elementPosition - offset;
 
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
           }
         }
       }, 300);
     }
-  }, [location]);
+  }, [location, lenis]);
 
 
 
@@ -201,40 +217,44 @@ export default function Navbar() {
       return;
     }
 
+    if (id === 'about') {
+      navigate('/about');
+      return;
+    }
+
     if (window.location.pathname !== '/') {
       navigate('/', { state: { scrollTo: id } });
       return;
     }
 
-    if (id === 'about') {
-      // Scroll to 4000 to show About collage
-      window.scrollTo({
-        top: 4000,
-        behavior: 'smooth'
-      });
-      return;
-    }
-
     if (id === 'home') {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      if (lenis) {
+        lenis.scrollTo(0);
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
       return;
     }
 
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+      if (lenis) {
+        lenis.scrollTo(element, { offset: -80 });
+      } else {
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     }
   };
 

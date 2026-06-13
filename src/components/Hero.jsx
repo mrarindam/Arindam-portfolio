@@ -1,6 +1,7 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLenis } from 'lenis/react';
 import Blogs from './Blogs';
 import './About.css';
 
@@ -11,6 +12,7 @@ import futureLeadersLogo from '../media/brandlogo/futureleaders.jpg';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
+  const lenis = useLenis();
   const containerRef = useRef(null);
   const bg1Ref = useRef(null);
   const bg2Ref = useRef(null);
@@ -253,35 +255,31 @@ export default function Hero() {
 
     }, containerRef);
 
-    // Read the saved scroll position
-    const savedY = sessionStorage.getItem('homeScrollY');
-    if (savedY) {
-      const targetY = parseInt(savedY, 10);
-
-      // Force initial scroll position before refresh
-      window.scrollTo(0, targetY);
-      ScrollTrigger.refresh();
-
-      // Keep scroll locked over a few frames so Lenis doesn't hijack and reset it to 0
-      let frameCount = 0;
-      const forceScroll = () => {
-        window.scrollTo(0, targetY);
-        if (frameCount < 10) {
-          frameCount++;
-          requestAnimationFrame(forceScroll);
-        } else {
-          ScrollTrigger.refresh();
-          document.documentElement.style.opacity = '1';
-        }
-      };
-      forceScroll();
-    } else {
-      document.documentElement.style.opacity = '1';
-    }
-
-
     return () => ctx.revert();
   }, []);
+
+  // Ensure the page starts at the beginning (0) and ScrollTrigger gets refreshed
+  useLayoutEffect(() => {
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+      ScrollTrigger.update();
+      ScrollTrigger.refresh();
+
+      const forceScrollZero = () => {
+        lenis.scrollTo(0, { immediate: true });
+        ScrollTrigger.update();
+        ScrollTrigger.refresh();
+      };
+      
+      requestAnimationFrame(forceScrollZero);
+      const timeoutId = setTimeout(forceScrollZero, 50);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
+    document.documentElement.style.opacity = '1';
+  }, [lenis]);
 
   return (
     <div ref={containerRef} id="home" className="hero-gsap-section" data-theme="dark">

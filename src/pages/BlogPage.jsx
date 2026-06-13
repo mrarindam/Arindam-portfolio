@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { blogs, toSlug } from '../data/blogs';
 import '../components/Blogs.css';
-
 export default function BlogPage() {
   const { slug } = useParams();
   const navigate = useNavigate();

@@ -31,6 +31,13 @@ const MailIcon = ({ size }) => (
   </svg>
 );
 
+const XIcon = ({ size }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+  </svg>
+);
+
 const ContactNode = ({ icon: Icon, label, href, delay, x, y, isMobile }) => {
   return (
     <motion.a
@@ -62,9 +69,8 @@ const ContactNode = ({ icon: Icon, label, href, delay, x, y, isMobile }) => {
   );
 };
 
-export default function Contact({ forceActive }) {
+export default function Contact() {
   const containerRef = useRef(null);
-  const animationRef = useRef(null);
   const [phase, setPhase] = useState("idle");
   const [isMobile, setIsMobile] = useState(false);
   // A unique key that increments each time we re-enter, forcing React to
@@ -90,33 +96,9 @@ export default function Contact({ forceActive }) {
     // Sound disabled
   }, []);
 
-  // Control animation sequence via prop or IntersectionObserver
+  // Manual IntersectionObserver — fires on EVERY enter & leave
   useEffect(() => {
-    if (forceActive !== undefined) {
-      if (forceActive) {
-        clearTimers();
-        const t0 = setTimeout(() => {
-          setPhase("falling");
-          playSound();
-
-          const t1 = setTimeout(() => {
-            setPhase("impact");
-            const t2 = setTimeout(() => setPhase("split"), 400);
-            timersRef.current.push(t2);
-          }, 800);
-          timersRef.current.push(t1);
-        }, 150);
-        timersRef.current.push(t0);
-      } else {
-        clearTimers();
-        setPhase("idle");
-        setAnimKey((k) => k + 1);
-      }
-      return () => clearTimers();
-    }
-
-    // Fallback Manual IntersectionObserver — fires on EVERY enter & leave
-    const el = animationRef.current;
+    const el = containerRef.current;
     if (!el) return;
 
     const observer = new IntersectionObserver(
@@ -152,13 +134,14 @@ export default function Contact({ forceActive }) {
       observer.disconnect();
       clearTimers();
     };
-  }, [forceActive, clearTimers, playSound]);
+  }, [clearTimers, playSound]);
 
   const nodes = [
-    { icon: GithubIcon, label: "GitHub", href: "https://github.com/mrarindam", x: -120, y: -60, delay: 0.1 },
-    { icon: TelegramIcon, label: "Telegram", href: "https://t.me/MrxArindam", x: 120, y: -60, delay: 0.2 },
-    { icon: DiscordIcon, label: "Discord", href: "#", x: -80, y: 70, delay: 0.3 },
-    { icon: MailIcon, label: "Email", href: "mailto:marindam342@gmail.com", x: 80, y: 70, delay: 0.4 },
+    { icon: GithubIcon, label: "GitHub", href: "https://github.com/mrarindam", x: -130, y: -40, delay: 0.1 },
+    { icon: TelegramIcon, label: "Telegram", href: "https://t.me/MrxArindam", x: 130, y: -40, delay: 0.2 },
+    { icon: XIcon, label: "X", href: "https://x.com/ExeArindam", x: 0, y: -120, delay: 0.3 },
+    { icon: DiscordIcon, label: "Discord", href: "#", x: -80, y: 85, delay: 0.4 },
+    { icon: MailIcon, label: "Email", href: "mailto:marindam342@gmail.com", x: 80, y: 85, delay: 0.5 },
   ];
 
   return (
@@ -174,7 +157,7 @@ export default function Contact({ forceActive }) {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="intro-title"
           >
-            Hi, I’m Arindam — a passionate web developer with a strong foundation in modern technologies.
+            Hi, I’m Arindam a passionate web developer with a strong foundation in modern technologies.
           </motion.h1>
 
           <motion.p
@@ -184,7 +167,7 @@ export default function Contact({ forceActive }) {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
             className="intro-text secondary"
           >
-            I’ve been coding since 2021, building dynamic, scalable, and high-performance web applications using JavaScript, React.js, Node.js, and Python.
+            I’ve been coding since 2021, building dynamic, scalable and high-performance web applications using JavaScript, React.js, Node.js and Python.
           </motion.p>
 
           <motion.p
@@ -194,12 +177,12 @@ export default function Contact({ forceActive }) {
             transition={{ duration: 0.5, delay: 0.6, ease: "easeOut" }}
             className="intro-text tertiary"
           >
-            Since 2026, I’ve been focused on advanced development practices — optimizing performance, refining architecture, and creating seamless user experiences.
+            Since 2026, I’ve been focused on advanced development practices — optimizing performance, refining architecture and creating seamless user experiences.
           </motion.p>
         </div>
 
         {/* key={animKey} forces a full remount so framer-motion replays initial→animate */}
-        <div ref={animationRef} className="animation-center" key={animKey}>
+        <div className="animation-center" key={animKey}>
           {/* Phase 1: Falling Orb */}
           {(phase === "falling" || phase === "idle") && (
             <motion.div
