@@ -162,7 +162,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .main-footer {
     padding: 7rem 1.25rem 2rem;
   }

@@ -17,7 +17,15 @@ export default function BlogPage() {
 
   if (!blog) {
     return (
-      <div className="blog-page-wrapper" data-theme="light" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <motion.div 
+        className="blog-page-wrapper" 
+        data-theme="light" 
+        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+        initial={{ x: "100%", opacity: 0 }}
+        animate={{ x: 0, opacity: 1, position: "relative" }}
+        exit={{ x: "-100%", opacity: 0, position: "absolute", top: 0, left: 0, width: "100%", zIndex: 10 }}
+        transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
+      >
         <Navbar />
         <main className="blog-page-main" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '10rem 2rem' }}>
           <h1 style={{ color: '#111115', fontFamily: 'Inter, sans-serif', marginBottom: '2rem' }}>Blog Not Found</h1>
@@ -39,12 +47,19 @@ export default function BlogPage() {
           </button>
         </main>
         <Footer />
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="blog-page-wrapper" data-theme="light">
+    <motion.div 
+      className="blog-page-wrapper" 
+      data-theme="light"
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1, position: "relative" }}
+      exit={{ x: "-100%", opacity: 0, position: "absolute", top: 0, left: 0, width: "100%", zIndex: 10 }}
+      transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
+    >
       <Navbar />
       
       <main className="blog-page-main">
@@ -84,6 +99,6 @@ export default function BlogPage() {
       </main>
 
       <Footer />
-    </div>
+    </motion.div>
   );
 }

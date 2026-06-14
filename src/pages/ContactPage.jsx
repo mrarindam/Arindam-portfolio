@@ -14,10 +14,10 @@ export default function ContactPage() {
     <motion.div 
       className="contact-page-wrapper" 
       data-theme="light"
-      initial={{ x: "-100%", opacity: 0.9 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: "100%", opacity: 0.9 }}
-      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ x: "-100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1, position: "relative" }}
+      exit={{ x: "100%", opacity: 0, position: "absolute", top: 0, left: 0, width: "100%", zIndex: 10 }}
+      transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
     >
       <Navbar />
       

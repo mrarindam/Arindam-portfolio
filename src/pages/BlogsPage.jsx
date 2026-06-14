@@ -6,6 +6,26 @@ import Footer from '../components/Footer';
 import { blogs, toSlug } from '../data/blogs';
 import './BlogsPage.css';
 
+const MotionLink = motion(Link);
+
+const arrowVariants = {
+  rest: { x: 0, opacity: 1 },
+  hover: {
+    x: [0, 24, -24, 0],
+    opacity: [1, 0, 0, 1],
+    transition: {
+      times: [0, 0.4, 0.42, 1],
+      duration: 0.4,
+      ease: "easeInOut"
+    }
+  }
+};
+
+const buttonVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.08, transition: { type: "spring", stiffness: 400, damping: 15 } }
+};
+
 // Tag helper for consistency
 const getBlogTag = (id) => {
   switch (id) {
@@ -38,10 +58,10 @@ export default function BlogsPage() {
     <motion.div 
       className="blogs-page-wrapper"
       data-theme="light"
-      initial={{ x: "-100%", opacity: 0.9 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: "100%", opacity: 0.9 }}
-      transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ x: "-100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1, position: "relative" }}
+      exit={{ x: "100%", opacity: 0, position: "absolute", top: 0, left: 0, width: "100%", zIndex: 10 }}
+      transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
     >
       <Navbar />
       
@@ -65,7 +85,18 @@ export default function BlogsPage() {
       </div>
 
       <main className="blogs-page-main">
-        <h1 className="blogs-page-heading">Blogs</h1>
+        <h1 className="blogs-page-heading">
+          Blogs
+          <svg className="blogs-handdrawn-line" viewBox="0 0 500 20" preserveAspectRatio="none">
+            <path 
+              d="M 2,10 Q 125,6 250,12 T 498,9" 
+              stroke="#111115" 
+              strokeWidth="3.5" 
+              fill="none" 
+              strokeLinecap="round" 
+            />
+          </svg>
+        </h1>
         
         {/* Articles Grid */}
         <div className="articles-grid">
@@ -73,7 +104,13 @@ export default function BlogsPage() {
             const tag = getBlogTag(blog.id);
             return (
               <article key={blog.id} className="article-card">
-                <Link to={`/blog/${toSlug(blog.title)}`} className="article-card-link">
+                <MotionLink 
+                  to={`/blog/${toSlug(blog.title)}`} 
+                  className="article-card-link"
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
+                >
                   <div className="article-image-wrapper">
                     <img src={blog.thumbnail} alt={blog.title} className="article-image" loading="lazy" />
                   </div>
@@ -83,15 +120,25 @@ export default function BlogsPage() {
                     
                     <div className="article-card-footer">
                       <span className="article-tag-badge">{tag}</span>
-                      <div className="article-arrow-btn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <motion.div className="article-arrow-btn" variants={buttonVariants}>
+                        <motion.svg 
+                          variants={arrowVariants}
+                          width="24" 
+                          height="24" 
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="2.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                        >
                           <line x1="5" y1="12" x2="19" y2="12"></line>
                           <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                      </div>
+                        </motion.svg>
+                      </motion.div>
                     </div>
                   </div>
-                </Link>
+                </MotionLink>
               </article>
             );
           })}

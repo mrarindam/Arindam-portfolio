@@ -4,6 +4,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import { blogs, toSlug } from '../data/blogs';
 import './Blogs.css';
 
+const MotionLink = motion(Link);
+
+const arrowVariants = {
+  rest: { x: 0, opacity: 1 },
+  hover: {
+    x: [0, 24, -24, 0],
+    opacity: [1, 0, 0, 1],
+    transition: {
+      times: [0, 0.4, 0.42, 1],
+      duration: 0.4,
+      ease: "easeInOut"
+    }
+  }
+};
+
+const buttonVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.08, transition: { type: "spring", stiffness: 400, damping: 15 } }
+};
+
 // Show exactly the 5 most recent blogs
 const recentBlogs = blogs.slice().reverse().slice(0, 5);
 
@@ -37,7 +57,7 @@ export default function Blogs() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 600) {
         setCardsToShow(1);
       } else if (window.innerWidth <= 1024) {
         setCardsToShow(2);
@@ -100,7 +120,13 @@ export default function Blogs() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    <Link to={`/blog/${toSlug(blog.title)}`} className="blog-card-link-custom">
+                    <MotionLink 
+                      to={`/blog/${toSlug(blog.title)}`} 
+                      className="blog-card-link-custom"
+                      initial="rest"
+                      whileHover="hover"
+                      animate="rest"
+                    >
                       <div
                         className="blog-card-thumb-custom"
                         style={{ backgroundImage: `url(${blog.thumbnail})` }}
@@ -117,15 +143,25 @@ export default function Blogs() {
                             {tagInfo.label}
                           </span>
                           
-                          <div className="blog-card-arrow-custom">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <motion.div className="blog-card-arrow-custom" variants={buttonVariants}>
+                            <motion.svg 
+                              variants={arrowVariants}
+                              width="24" 
+                              height="24" 
+                              viewBox="0 0 24 24" 
+                              fill="none" 
+                              stroke="currentColor" 
+                              strokeWidth="2.5" 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round"
+                            >
                               <line x1="5" y1="12" x2="19" y2="12"></line>
                               <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                          </div>
+                            </motion.svg>
+                          </motion.div>
                         </div>
                       </div>
-                    </Link>
+                    </MotionLink>
                   </motion.article>
                 );
               })}

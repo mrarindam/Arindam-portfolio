@@ -350,7 +350,7 @@ html {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   :root {
     --hero-bg-1: url('/hero-bg-mb.webp');
     --hero-bg-2: url('/hero-bg-2-mb.webp');
@@ -615,7 +615,7 @@ html {
 }
 
 /* Vertical constraint logic exclusively for Mobile UI */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .premium-swiper {
     height: 65vh;
     /* Mandated height allows Swiper to calculate internal scroll offsets securely */
@@ -818,8 +818,8 @@ html {
   }
 }
 
-/* Mobile Specific (768px and below) */
-@media (max-width: 768px) {
+/* Mobile Specific (600px and below) */
+@media (max-width: 600px) {
   .about-section {
     padding: 3rem 1.5rem;
   }

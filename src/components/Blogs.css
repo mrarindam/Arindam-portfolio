@@ -184,22 +184,22 @@
 
 /* Arrow Circle button */
 .blog-card-arrow-custom {
-  width: 40px;
-  height: 40px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #111115;
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
 .blog-card-custom:hover .blog-card-arrow-custom {
   background: var(--primary-glow);
   border-color: var(--primary-glow);
   color: #ffffff;
-  transform: translateX(3px);
 }
 
 /* --- Navigation & Button Controls --- */
@@ -307,7 +307,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .blogs-section-purple {
     padding: 6rem 1.5rem 4rem;
   }
@@ -459,7 +459,7 @@ html.blog-open body {
 }
 
 /* Mobile responsive details styling */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .blog-detail-wrapper {
     padding: 2.5rem 1rem;
   }
@@ -683,7 +683,7 @@ html.blog-open body {
 }
 
 /* Mobile adjustments */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .blog-page-main {
     padding-top: 6.5rem;
     padding-bottom: 4rem;

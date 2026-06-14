@@ -96,14 +96,16 @@ function AnimatedRoutes() {
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/blogs" element={<BlogsPage />} />
-        <Route path="/blog/:slug" element={<BlogPage />} />
-        <Route path="/works" element={<WorksPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
+      <AnimatePresence>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blog/:slug" element={<BlogPage />} />
+          <Route path="/works" element={<WorksPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </AnimatePresence>
     </div>
   );
 }

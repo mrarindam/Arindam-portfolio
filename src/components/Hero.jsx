@@ -43,7 +43,7 @@ export default function Hero() {
     // Phones get a smaller, centered image so the stacked About title
     // (top) and quote (bottom) have clear space around it. Matches the
     // 768px breakpoint where .about-collage-container switches to a column.
-    const isCompact = window.matchMedia("(max-width: 768px)").matches;
+    const isCompact = window.matchMedia("(max-width: 600px)").matches;
     const imageTarget = isCompact
       ? {
         width: "60vw",

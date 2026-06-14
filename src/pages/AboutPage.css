@@ -85,7 +85,7 @@
   font-size: clamp(3.2rem, 5.5vw, 5.2rem) !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .about-page-wrapper .about-main-image-container {
     width: 60vw !important;
     height: 38vh !important;

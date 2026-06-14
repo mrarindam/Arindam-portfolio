@@ -33,7 +33,7 @@ export default function AboutPage() {
       history.scrollRestoration = 'manual';
     }
 
-    const isCompact = window.matchMedia("(max-width: 768px)").matches;
+    const isCompact = window.matchMedia("(max-width: 600px)").matches;
     const imageTarget = isCompact
       ? {
           width: "60vw",
@@ -90,7 +90,7 @@ export default function AboutPage() {
   useLayoutEffect(() => {
     if (!isTransitionComplete) return;
 
-    const isCompact = window.matchMedia("(max-width: 768px)").matches;
+    const isCompact = window.matchMedia("(max-width: 600px)").matches;
     const imageTarget = isCompact
       ? {
           width: "60vw",

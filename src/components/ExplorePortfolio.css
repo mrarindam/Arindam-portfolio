@@ -99,7 +99,11 @@
 }
 
 /* --- Responsive Adaptations --- */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
+  .explore-section {
+    height: 120vh;
+  }
+
   .explore-masonry-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;

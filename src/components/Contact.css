@@ -203,7 +203,7 @@
 }
 
 /* Mobile Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .contact-wrapper {
     min-height: 60vh;
     padding: 2rem 0;
@@ -263,7 +263,7 @@
   font-weight: 300;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .contact-intro {
     margin-top: 3.5rem;
     margin-bottom: 3rem;
