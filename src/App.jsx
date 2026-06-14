@@ -29,8 +29,8 @@ function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useDocumentMetadata({
-    title: "Mr Arindam — Developer, Creator & Builder | Portfolio",
-    description: "Explore the portfolio of Mr Arindam — a Full Stack Developer specializing in modern web experiences, AI agents, Web3, and creative digital products.",
+    title: "Mr Arindam | Developer, Creator & Builder | Portfolio",
+    description: "Explore the portfolio of Mr Arindam - a Full Stack Developer specializing in modern web experiences, AI agents, Web3, and creative digital products.",
     canonicalPath: "/"
   });
 
@@ -39,7 +39,7 @@ function HomePage() {
       <AnimatePresence mode="wait">
         {isLoading && <Loader key="loader" onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
-      
+
       <Navbar />
       <div className="app-main">
         <Hero />
@@ -87,7 +87,7 @@ function AnimatedRoutes() {
   // Ensure pages are immediately visible and reset scroll to top
   useLayoutEffect(() => {
     document.documentElement.style.opacity = '1';
-    
+
     const resetScroll = () => {
       if (lenis) {
         lenis.scrollTo(0, { immediate: true });
@@ -124,9 +124,9 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ReactLenis 
-        root 
-        autoRaf={false} 
+      <ReactLenis
+        root
+        autoRaf={false}
         options={{ lerp: 0.05, smoothWheel: true }}
       >
         <Suspense fallback={<div style={{ height: '100vh', background: '#000' }} />}>

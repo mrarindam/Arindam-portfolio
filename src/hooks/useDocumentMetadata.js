@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const SITE_URL = 'https://mrarindam.com';
+const SITE_URL = 'https://mrarindam.xyz';
 
 export default function useDocumentMetadata({
   title,

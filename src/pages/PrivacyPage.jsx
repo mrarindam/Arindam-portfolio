@@ -10,7 +10,7 @@ import './LegalPages.css';
 export default function PrivacyPage() {
   useDocumentMetadata({
     title: "Privacy Policy | Mr Arindam — How Your Data Is Protected",
-    description: "Read the privacy policy for mrarindam.com. Learn how we collect, use, and protect your personal information when you visit or interact with our website.",
+    description: "Read the privacy policy for mrarindam.xyz. Learn how we collect, use, and protect your personal information when you visit or interact with our website.",
     canonicalPath: "/privacy"
   });
 
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
           <section className="legal-section">
             <h2>1. Introduction</h2>
             <p>
-              Welcome to the personal website of Mr Arindam (mrarindam.com). Your privacy is of paramount importance to us. This Privacy Policy document outlines the types of personal information that is received and collected by this website and how it is used.
+              Welcome to the personal website of Mr Arindam (mrarindam.xyz). Your privacy is of paramount importance to us. This Privacy Policy document outlines the types of personal information that is received and collected by this website and how it is used.
             </p>
             <p>
               By accessing or using our website, you agree to the collection, use, and disclosure of your information in accordance with this Privacy Policy. If you do not agree with the terms outlined herein, please do not use the website.

@@ -10,7 +10,7 @@ import './LegalPages.css';
 export default function TermsPage() {
   useDocumentMetadata({
     title: "Terms of Service | Mr Arindam — Usage Guidelines & Policies",
-    description: "Review the terms of service for mrarindam.com. Understand the rules, intellectual property rights, and limitations governing the use of this website.",
+    description: "Review the terms of service for mrarindam.xyz. Understand the rules, intellectual property rights, and limitations governing the use of this website.",
     canonicalPath: "/terms"
   });
 
@@ -47,7 +47,7 @@ export default function TermsPage() {
           <section className="legal-section">
             <h2>1. Acceptance of Terms</h2>
             <p>
-              By accessing and browsing the website of Mr Arindam (mrarindam.com), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service, along with all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
+              By accessing and browsing the website of Mr Arindam (mrarindam.xyz), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service, along with all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.
             </p>
           </section>
 
