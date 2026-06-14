@@ -25,44 +25,52 @@ export default function ExplorePortfolio() {
   const col3Ref = useRef(null);
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      // Column Parallax Animations (No pinning, dynamically translates columns as the user scrolls past)
-      gsap.to(col1Ref.current, {
-        y: '-100px',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        }
-      });
+    let ctx;
+    const timer = setTimeout(() => {
+      ctx = gsap.context(() => {
+        // Column Parallax Animations (No pinning, dynamically translates columns as the user scrolls past)
+        gsap.to(col1Ref.current, {
+          y: '-100px',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          }
+        });
 
-      gsap.to(col2Ref.current, {
-        y: '80px',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        }
-      });
+        gsap.to(col2Ref.current, {
+          y: '80px',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          }
+        });
 
-      gsap.to(col3Ref.current, {
-        y: '-120px',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        }
-      });
+        gsap.to(col3Ref.current, {
+          y: '-120px',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          }
+        });
 
-    }, sectionRef);
+      }, sectionRef);
 
-    return () => ctx.revert();
+      ScrollTrigger.refresh();
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (

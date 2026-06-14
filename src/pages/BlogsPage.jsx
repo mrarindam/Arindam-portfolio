@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { blogs, toSlug } from '../data/blogs';
@@ -49,6 +50,12 @@ const getBlogTag = (id) => {
 };
 
 export default function BlogsPage() {
+  useDocumentMetadata({
+    title: "Blog | Mr Arindam — Articles on Development, Security & Tech",
+    description: "Read articles by Mr Arindam on web development, cybersecurity, automation, Python scripting, and hands-on tech tutorials.",
+    canonicalPath: "/blogs"
+  });
+
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);

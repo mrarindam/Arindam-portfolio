@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BlogPage from './pages/BlogPage';
+import useDocumentMetadata from './hooks/useDocumentMetadata';
 import './index.css';
 
 import ExplorePortfolio from './components/ExplorePortfolio';
@@ -21,9 +22,17 @@ const WorksPage = lazy(() => import('./pages/WorksPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const BlogsPage = lazy(() => import('./pages/BlogsPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
 
 function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
+
+  useDocumentMetadata({
+    title: "Mr Arindam — Developer, Creator & Builder | Portfolio",
+    description: "Explore the portfolio of Mr Arindam — a Full Stack Developer specializing in modern web experiences, AI agents, Web3, and creative digital products.",
+    canonicalPath: "/"
+  });
 
   return (
     <>
@@ -96,7 +105,7 @@ function AnimatedRoutes() {
 
   return (
     <div style={{ position: 'relative', width: '100%' }}>
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={() => ScrollTrigger.refresh()}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -104,6 +113,8 @@ function AnimatedRoutes() {
           <Route path="/blog/:slug" element={<BlogPage />} />
           <Route path="/works" element={<WorksPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
         </Routes>
       </AnimatePresence>
     </div>

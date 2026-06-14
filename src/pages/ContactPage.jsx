@@ -1,11 +1,18 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Contact from '../components/Contact';
 import './ContactPage.css';
 
 export default function ContactPage() {
+  useDocumentMetadata({
+    title: "Contact | Mr Arindam — Get in Touch for Collaborations",
+    description: "Reach out to Mr Arindam for project collaborations, freelance work, brand partnerships, or just to say hello. Let's build something amazing together.",
+    canonicalPath: "/contact"
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

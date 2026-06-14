@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { mainProjects, otherProjects } from '../data/projects';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RetroGame from '../components/RetroGame';
@@ -8,6 +9,12 @@ import './WorksPage.css';
 
 export default function WorksPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
+
+  useDocumentMetadata({
+    title: "My Work | Mr Arindam — Projects & Creations",
+    description: "A curated showcase of applications, Web3 integrations, SaaS platforms, gaming projects, and digital tools built by Mr Arindam.",
+    canonicalPath: "/works"
+  });
 
   // Scroll to top when page loads
   useEffect(() => {

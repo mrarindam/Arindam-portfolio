@@ -59,44 +59,52 @@ export default function Creations() {
   };
 
   useLayoutEffect(() => {
-    const mm = gsap.matchMedia();
+    let mm;
+    let ctx;
 
-    // Pinning cards on desktop/tablet to eliminate heavy scroll lag on mobile viewports
-    mm.add("(min-width: 601px)", () => {
-      const cards = gsap.utils.toArray('.project-card-wrapper');
-      
-      cards.forEach((card, idx) => {
-        if (idx === cards.length - 1) return; // Do not pin the last card
+    const timer = setTimeout(() => {
+      mm = gsap.matchMedia();
 
-        ScrollTrigger.create({
-          trigger: card,
-          pin: true,
-          pinSpacing: false,
-          start: `top ${idx * 30}px`,
-          endTrigger: cards[cards.length - 1],
-          end: `top ${idx * 30}px`,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
+      // Pinning cards on desktop/tablet to eliminate heavy scroll lag on mobile viewports
+      mm.add("(min-width: 601px)", () => {
+        const cards = gsap.utils.toArray('.project-card-wrapper');
+        
+        cards.forEach((card, idx) => {
+          if (idx === cards.length - 1) return; // Do not pin the last card
+
+          ScrollTrigger.create({
+            trigger: card,
+            pin: true,
+            pinSpacing: false,
+            start: `top ${idx * 30}px`,
+            endTrigger: cards[cards.length - 1],
+            end: `top ${idx * 30}px`,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
+          });
         });
       });
-    });
 
-    // Global ScrollTrigger for active section tracking
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 80px',
-        end: 'bottom top',
-        onEnter: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'creations' })),
-        onLeave: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'home' })),
-        onEnterBack: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'creations' })),
-        onLeaveBack: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'blogs' })),
-      });
-    }, sectionRef);
+      // Global ScrollTrigger for active section tracking
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 80px',
+          end: 'bottom top',
+          onEnter: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'creations' })),
+          onLeave: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'home' })),
+          onEnterBack: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'creations' })),
+          onLeaveBack: () => window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: 'blogs' })),
+        });
+      }, sectionRef);
+
+      ScrollTrigger.refresh();
+    }, 1000);
 
     return () => {
-      mm.revert();
-      ctx.revert();
+      clearTimeout(timer);
+      if (mm) mm.revert();
+      if (ctx) ctx.revert();
     };
   }, []);
 

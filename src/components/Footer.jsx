@@ -47,7 +47,11 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <span className="footer-copy">MR ARINDAM &copy; {new Date().getFullYear()} ALL RIGHTS RESERVED.</span>
-        <span className="footer-policy">PRIVACY POLICY</span>
+        <div className="footer-policies">
+          <Link to="/privacy" className="footer-policy-link">PRIVACY POLICY</Link>
+          <span className="policy-divider">|</span>
+          <Link to="/terms" className="footer-policy-link">TERMS OF SERVICE</Link>
+        </div>
       </div>
     </footer>
   );

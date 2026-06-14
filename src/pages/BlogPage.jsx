@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { blogs, toSlug } from '../data/blogs';
@@ -9,6 +10,13 @@ export default function BlogPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
   const blog = blogs.find((b) => toSlug(b.title) === slug);
+
+  useDocumentMetadata({
+    title: blog ? `${blog.title} | Mr Arindam Blog` : "Blog Not Found | Mr Arindam",
+    description: blog ? blog.desc : "The requested blog post could not be found.",
+    ogType: blog ? "article" : "website",
+    canonicalPath: `/blog/${slug}`
+  });
 
   // Scroll to top when slug changes
   useEffect(() => {

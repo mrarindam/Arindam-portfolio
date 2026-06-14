@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Blogs from './Blogs';
 import './About.css';
 
@@ -12,6 +13,11 @@ import futureLeadersLogo from '../media/brandlogo/futureleaders.jpg';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
+  useDocumentMetadata({
+    title: "Mr Arindam | Designer, Developer & Creator Portfolio",
+    description: "Welcome to the official portfolio of Mr Arindam. Discover high-performance web applications, AI integrations, creative designs, and full-stack development projects."
+  });
+
   const lenis = useLenis();
   const containerRef = useRef(null);
   const bg1Ref = useRef(null);
@@ -74,188 +80,196 @@ export default function Hero() {
         scale: 1,
       };
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=15000", // Extended duration to accommodate the Blogs section slide up and hold
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            // self.progress ranges from 0 to 1.
-            let active = 'home';
-            let theme = 'dark';
-            if (self.progress >= 0.293 && self.progress < 0.879) {
-              active = 'about';
-              theme = 'light';
-            } else if (self.progress >= 0.879) {
-              active = 'blogs';
-              theme = 'light';
-            } else {
-              active = 'home';
-              theme = 'dark';
-            }
-            window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: active }));
-            if (containerRef.current) {
-              containerRef.current.setAttribute('data-theme', theme);
+    let ctx;
+    const timer = setTimeout(() => {
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=15000", // Extended duration to accommodate the Blogs section slide up and hold
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+            onUpdate: (self) => {
+              // self.progress ranges from 0 to 1.
+              let active = 'home';
+              let theme = 'dark';
+              if (self.progress >= 0.293 && self.progress < 0.879) {
+                active = 'about';
+                theme = 'light';
+              } else if (self.progress >= 0.879) {
+                active = 'blogs';
+                theme = 'light';
+              } else {
+                active = 'home';
+                theme = 'dark';
+              }
+              window.dispatchEvent(new CustomEvent('heroActiveSection', { detail: active }));
+              if (containerRef.current) {
+                containerRef.current.setAttribute('data-theme', theme);
+              }
             }
           }
-        }
-      });
+        });
 
-      // Logos start raised & invisible so they can drop + bounce on reveal
-      gsap.set([discordLogoRef.current, idollyLogoRef.current], {
-        opacity: 0,
-        y: -180
-      });
+        // Logos start raised & invisible so they can drop + bounce on reveal
+        gsap.set([discordLogoRef.current, idollyLogoRef.current], {
+          opacity: 0,
+          y: -180
+        });
 
-      gsap.set(blogsWrapperRef.current, {
-        y: "100%",
-        visibility: "hidden",
-        pointerEvents: "none"
-      });
+        gsap.set(blogsWrapperRef.current, {
+          y: "100%",
+          visibility: "hidden",
+          pointerEvents: "none"
+        });
 
-      // Initial State: Text layers 2 & 3 hidden
-      gsap.set([text2Ref.current, text3Ref.current], {
-        opacity: 0,
-        y: 20,
-        filter: "blur(10px)"
-      });
-      gsap.set([bg2Ref.current, bg3Ref.current], { opacity: 0 });
+        // Initial State: Text layers 2 & 3 hidden
+        gsap.set([text2Ref.current, text3Ref.current], {
+          opacity: 0,
+          y: 20,
+          filter: "blur(10px)"
+        });
+        gsap.set([bg2Ref.current, bg3Ref.current], { opacity: 0 });
 
-      // Ensure bg3 initial properties are fully reset
-      gsap.set(bg3Ref.current, {
-        width: "100%",
-        height: "100%",
-        top: "0%",
-        left: "0%",
-        xPercent: 0,
-        yPercent: 0,
-        borderRadius: "0px",
-        x: 0 // Reset any horizontal translation
-      });
+        // Ensure bg3 initial properties are fully reset
+        gsap.set(bg3Ref.current, {
+          width: "100%",
+          height: "100%",
+          top: "0%",
+          left: "0%",
+          xPercent: 0,
+          yPercent: 0,
+          borderRadius: "0px",
+          x: 0 // Reset any horizontal translation
+        });
 
-      // --- STAGE 1: Transition Scene 1 to Scene 2 ---
-      tl.to(bg1Ref.current, { opacity: 0, scale: 1.1, duration: 2, ease: "power2.inOut" }, 0)
-        .to(bg2Ref.current, { opacity: 1, duration: 2, ease: "power2.inOut" }, 0);
+        // --- STAGE 1: Transition Scene 1 to Scene 2 ---
+        tl.to(bg1Ref.current, { opacity: 0, scale: 1.1, duration: 2, ease: "power2.inOut" }, 0)
+          .to(bg2Ref.current, { opacity: 1, duration: 2, ease: "power2.inOut" }, 0);
 
-      tl.to(text1Ref.current, {
-        opacity: 0,
-        y: -20,
-        filter: "blur(10px)",
-        duration: 1.5,
-        ease: "power2.in"
-      }, 0);
+        tl.to(text1Ref.current, {
+          opacity: 0,
+          y: -20,
+          filter: "blur(10px)",
+          duration: 1.5,
+          ease: "power2.in"
+        }, 0);
 
-      tl.to(text2Ref.current, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 2,
-        ease: "power2.out"
-      }, 1.2);
+        tl.to(text2Ref.current, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 2,
+          ease: "power2.out"
+        }, 1.2);
 
-      // --- STAGE 2: Transition Scene 2 to Scene 3 ---
-      tl.to(bg2Ref.current, { opacity: 0, scale: 1.1, duration: 2, ease: "power2.inOut" }, 3.5)
-        .to(bg3Ref.current, { opacity: 1, duration: 2, ease: "power2.inOut" }, 3.5);
+        // --- STAGE 2: Transition Scene 2 to Scene 3 ---
+        tl.to(bg2Ref.current, { opacity: 0, scale: 1.1, duration: 2, ease: "power2.inOut" }, 3.5)
+          .to(bg3Ref.current, { opacity: 1, duration: 2, ease: "power2.inOut" }, 3.5);
 
-      tl.to(text2Ref.current, {
-        opacity: 0,
-        y: -20,
-        filter: "blur(10px)",
-        duration: 1.5,
-        ease: "power2.in"
-      }, 3.5);
+        tl.to(text2Ref.current, {
+          opacity: 0,
+          y: -20,
+          filter: "blur(10px)",
+          duration: 1.5,
+          ease: "power2.in"
+        }, 3.5);
 
-      tl.to(text3Ref.current, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 2,
-        ease: "power2.out"
-      }, 4.7);
+        tl.to(text3Ref.current, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 2,
+          ease: "power2.out"
+        }, 4.7);
 
-      // Image 3 zooms in slightly
-      tl.to(bg3Ref.current, { scale: 1.1, duration: 2, ease: "none" }, 4.7);
+        // Image 3 zooms in slightly
+        tl.to(bg3Ref.current, { scale: 1.1, duration: 2, ease: "none" }, 4.7);
 
-      // Scene 3 is now fully visible around t=6.7. HOLD it here so the
-      // "Turning Ideas Into Reality" text + image stay crisp and readable
-      // for a good stretch of scrolling before the About transition begins.
+        // Scene 3 is now fully visible around t=6.7. HOLD it here so the
+        // "Turning Ideas Into Reality" text + image stay crisp and readable
+        // for a good stretch of scrolling before the About transition begins.
 
-      // --- STAGE 3: ZOOM OUT TO ABOUT COLLAGE & BG COLOR SHIFT ---
+        // --- STAGE 3: ZOOM OUT TO ABOUT COLLAGE & BG COLOR SHIFT ---
 
-      // Hide Text 3 as we exit Hero narrative (after the hold)
-      tl.to(text3Ref.current, {
-        opacity: 0,
-        y: -40,
-        filter: "blur(10px)",
-        duration: 1.5,
-        ease: "power2.in"
-      }, 10.3);
+        // Hide Text 3 as we exit Hero narrative (after the hold)
+        tl.to(text3Ref.current, {
+          opacity: 0,
+          y: -40,
+          filter: "blur(10px)",
+          duration: 1.5,
+          ease: "power2.in"
+        }, 10.3);
 
-      // 1. Change background gradually to white gradient & fade out dark vignette
-      // We start this slightly before the image shrink begins to prevent a black gap
-      tl.to(transitionBgRef.current, {
-        opacity: 1,
-        duration: 3,
-        ease: "power2.inOut"
-      }, 9.7);
+        // 1. Change background gradually to white gradient & fade out dark vignette
+        // We start this slightly before the image shrink begins to prevent a black gap
+        tl.to(transitionBgRef.current, {
+          opacity: 1,
+          duration: 3,
+          ease: "power2.inOut"
+        }, 9.7);
 
-      tl.to(vignetteRef.current, {
-        opacity: 0,
-        duration: 3,
-        ease: "power2.inOut"
-      }, 9.7);
+        tl.to(vignetteRef.current, {
+          opacity: 0,
+          duration: 3,
+          ease: "power2.inOut"
+        }, 9.7);
 
-      // 2. Shrink bg3 into the center of the About bento collage
-      tl.to(bg3Ref.current, {
-        ...imageTarget,
-        duration: 3.5,
-        ease: "power2.inOut"
-      }, 10.0);
+        // 2. Shrink bg3 into the center of the About bento collage
+        tl.to(bg3Ref.current, {
+          ...imageTarget,
+          duration: 3.5,
+          ease: "power2.inOut"
+        }, 10.0);
 
-      // 3. Make About Collage layout elements visible
-      tl.to(aboutOverlayRef.current, {
-        autoAlpha: 1,
-        duration: 1
-      }, 10.5);
+        // 3. Make About Collage layout elements visible
+        tl.to(aboutOverlayRef.current, {
+          autoAlpha: 1,
+          duration: 1
+        }, 10.5);
 
-      // 4. Fade in and slide the text components of Panel 1 into position
-      tl.fromTo(titleColRef.current, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, 11.3)
-        .fromTo(quoteRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, 11.3);
+        // 4. Fade in and slide the text components of Panel 1 into position
+        tl.fromTo(titleColRef.current, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, 11.3)
+          .fromTo(quoteRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, 11.3);
 
-      // --- STAGE 4: HORIZONTAL TRANSITIONS (PANELS 2, 3, 4) ---
+        // --- STAGE 4: HORIZONTAL TRANSITIONS (PANELS 2, 3, 4) ---
 
-      // Slide 1 to 2: Skills & Technologies
-      tl.to(trackRef.current, { xPercent: -25, ease: "power2.inOut", duration: 3.5 }, 14.0)
-        .to(bg3Ref.current, { x: "-100vw", ease: "power2.inOut", duration: 3.5 }, 14.0)
-        .to(transitionBgRef.current, { background: "linear-gradient(135deg, #fffcf6 0%, #fff3e0 100%)", duration: 3.5, ease: "power2.inOut" }, 14.0);
+        // Slide 1 to 2: Skills & Technologies
+        tl.to(trackRef.current, { xPercent: -25, ease: "power2.inOut", duration: 3.5 }, 14.0)
+          .to(bg3Ref.current, { x: "-100vw", ease: "power2.inOut", duration: 3.5 }, 14.0)
+          .to(transitionBgRef.current, { background: "linear-gradient(135deg, #fffcf6 0%, #fff3e0 100%)", duration: 3.5, ease: "power2.inOut" }, 14.0);
 
-      // Slide 2 to 3: Discord Moderator
-      tl.to(trackRef.current, { xPercent: -50, ease: "power2.inOut", duration: 3.5 }, 18.0)
-        .to(transitionBgRef.current, { background: "linear-gradient(135deg, #faf7fc 0%, #f3e5f5 100%)", duration: 3.5, ease: "power2.inOut" }, 18.0);
+        // Slide 2 to 3: Discord Moderator
+        tl.to(trackRef.current, { xPercent: -50, ease: "power2.inOut", duration: 3.5 }, 18.0)
+          .to(transitionBgRef.current, { background: "linear-gradient(135deg, #faf7fc 0%, #f3e5f5 100%)", duration: 3.5, ease: "power2.inOut" }, 18.0);
 
-      // Future Leaders logo drops in & bounces as Panel 3 settles
-      tl.to(discordLogoRef.current, { opacity: 1, duration: 0.4, ease: "none" }, 20.0)
-        .to(discordLogoRef.current, { y: 0, duration: 2.2, ease: "bounce.out" }, 20.0);
+        // Future Leaders logo drops in & bounces as Panel 3 settles
+        tl.to(discordLogoRef.current, { opacity: 1, duration: 0.4, ease: "none" }, 20.0)
+          .to(discordLogoRef.current, { y: 0, duration: 2.2, ease: "bounce.out" }, 20.0);
 
-      // Slide 3 to 4: Brand Ambassador
-      tl.to(trackRef.current, { xPercent: -75, ease: "power2.inOut", duration: 3.5 }, 22.0)
-        .to(transitionBgRef.current, { background: "linear-gradient(135deg, #f2fbfb 0%, #e0f7fa 100%)", duration: 3.5, ease: "power2.inOut" }, 22.0);
+        // Slide 3 to 4: Brand Ambassador
+        tl.to(trackRef.current, { xPercent: -75, ease: "power2.inOut", duration: 3.5 }, 22.0)
+          .to(transitionBgRef.current, { background: "linear-gradient(135deg, #f2fbfb 0%, #e0f7fa 100%)", duration: 3.5, ease: "power2.inOut" }, 22.0);
 
-      // IdollyAI logo drops in & bounces as Panel 4 settles
-      tl.to(idollyLogoRef.current, { opacity: 1, duration: 0.4, ease: "none" }, 24.0)
-        .to(idollyLogoRef.current, { y: 0, duration: 2.2, ease: "bounce.out" }, 24.0);
+        // IdollyAI logo drops in & bounces as Panel 4 settles
+        tl.to(idollyLogoRef.current, { opacity: 1, duration: 0.4, ease: "none" }, 24.0)
+          .to(idollyLogoRef.current, { y: 0, duration: 2.2, ease: "bounce.out" }, 24.0);
 
-      // Slide 4 to 5: Blogs slide up
-      tl.set(blogsWrapperRef.current, { visibility: "visible", pointerEvents: "auto" }, 25.5);
-      tl.to(blogsWrapperRef.current, { y: "0%", ease: "power2.inOut", duration: 3.5 }, 25.5);
+        // Slide 4 to 5: Blogs slide up
+        tl.set(blogsWrapperRef.current, { visibility: "visible", pointerEvents: "auto" }, 25.5);
+        tl.to(blogsWrapperRef.current, { y: "0%", ease: "power2.inOut", duration: 3.5 }, 25.5);
 
-    }, containerRef);
+        // Force refresh ScrollTrigger to ensure final alignments are locked
+        ScrollTrigger.refresh();
+      }, containerRef);
+    }, 900);
 
-    return () => ctx.revert();
+    return () => {
+      clearTimeout(timer);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   // Ensure the page starts at the beginning (0) and ScrollTrigger gets refreshed
@@ -270,7 +284,7 @@ export default function Hero() {
         ScrollTrigger.update();
         ScrollTrigger.refresh();
       };
-      
+
       requestAnimationFrame(forceScrollZero);
       const timeoutId = setTimeout(forceScrollZero, 50);
 
@@ -358,7 +372,7 @@ export default function Hero() {
             {/* Panel 2: Skills & Technologies */}
             <div className="about-panel panel-2">
               <div className="about-panel-content skills-panel-content">
-                <h2 className="about-panel-title">Skills & Technologies</h2>
+                <h2 className="about-panel-title">Tech Stack</h2>
                 <p className="skills-intro">
                   Full Stack Developer specializing in modern web experiences, AI-powered applications and scalable backend systems.
                 </p>

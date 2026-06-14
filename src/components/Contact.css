@@ -214,12 +214,12 @@
   }
 
   .node-glass {
-    width: 75px;
-    height: 75px;
+    width: 55px;
+    height: 55px;
   }
 
   .node-icon {
-    transform: scale(1.2);
+    transform: none;
   }
 }
 

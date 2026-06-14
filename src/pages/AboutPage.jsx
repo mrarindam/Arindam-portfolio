@@ -1,5 +1,7 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
+import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import idollyLogo from '../media/brandlogo/idolly AI.jpg';
@@ -13,6 +15,12 @@ import '../components/About.css';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutPage() {
+  useDocumentMetadata({
+    title: "About Me | Mr Arindam — Developer & Creator",
+    description: "Get to know Arindam — a Full Stack Developer specializing in modern web experiences, AI agents, Discord moderation, and brand ambassadorship in AI & Web3.",
+    canonicalPath: "/about"
+  });
+
   const containerRef = useRef(null);
   const trackRef = useRef(null);
   const imageRef = useRef(null);
@@ -21,6 +29,18 @@ export default function AboutPage() {
   const transitionBgRef = useRef(null);
   const lenis = useLenis();
   const [isTransitionComplete, setIsTransitionComplete] = useState(false);
+  const ctxRef = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.pathname.startsWith('/about')) {
+      if (ctxRef.current) {
+        ctxRef.current.revert();
+        ctxRef.current = null;
+      }
+      ScrollTrigger.refresh();
+    }
+  }, [location.pathname]);
 
   // 1. On mount, reset scroll and set initial static layout positioning immediately to ensure perfect visual layout during transition
   useLayoutEffect(() => {
@@ -36,33 +56,33 @@ export default function AboutPage() {
     const isCompact = window.matchMedia("(max-width: 600px)").matches;
     const imageTarget = isCompact
       ? {
-          width: "60vw",
-          height: "38vh",
-          minWidth: "0px",
-          minHeight: "0px",
-          maxWidth: "360px",
-          maxHeight: "420px",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: "8px",
-          scale: 1,
-        }
+        width: "60vw",
+        height: "38vh",
+        minWidth: "0px",
+        minHeight: "0px",
+        maxWidth: "360px",
+        maxHeight: "420px",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        borderRadius: "8px",
+        scale: 1,
+      }
       : {
-          width: "32vw",
-          height: "54vh",
-          minWidth: "350px",
-          minHeight: "450px",
-          maxWidth: "500px",
-          maxHeight: "600px",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: "8px",
-          scale: 1,
-        };
+        width: "32vw",
+        height: "54vh",
+        minWidth: "350px",
+        minHeight: "450px",
+        maxWidth: "500px",
+        maxHeight: "600px",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        borderRadius: "8px",
+        scale: 1,
+      };
 
     const ctx = gsap.context(() => {
       // Set initial logo states
@@ -93,33 +113,33 @@ export default function AboutPage() {
     const isCompact = window.matchMedia("(max-width: 600px)").matches;
     const imageTarget = isCompact
       ? {
-          width: "60vw",
-          height: "38vh",
-          minWidth: "0px",
-          minHeight: "0px",
-          maxWidth: "360px",
-          maxHeight: "420px",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: "8px",
-          scale: 1,
-        }
+        width: "60vw",
+        height: "38vh",
+        minWidth: "0px",
+        minHeight: "0px",
+        maxWidth: "360px",
+        maxHeight: "420px",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        borderRadius: "8px",
+        scale: 1,
+      }
       : {
-          width: "32vw",
-          height: "54vh",
-          minWidth: "350px",
-          minHeight: "450px",
-          maxWidth: "500px",
-          maxHeight: "600px",
-          top: "50%",
-          left: "50%",
-          xPercent: -50,
-          yPercent: -50,
-          borderRadius: "8px",
-          scale: 1,
-        };
+        width: "32vw",
+        height: "54vh",
+        minWidth: "350px",
+        minHeight: "450px",
+        maxWidth: "500px",
+        maxHeight: "600px",
+        top: "50%",
+        left: "50%",
+        xPercent: -50,
+        yPercent: -50,
+        borderRadius: "8px",
+        scale: 1,
+      };
 
     let refreshTimer;
 
@@ -179,13 +199,17 @@ export default function AboutPage() {
       // --- STAGE 7: Hold on Panel 4 (17.5 to 20.0 seconds) ---
 
     }, containerRef);
+    ctxRef.current = ctx;
 
     refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 150);
 
     return () => {
-      ctx.revert();
+      if (ctxRef.current) {
+        ctxRef.current.revert();
+        ctxRef.current = null;
+      }
       clearTimeout(refreshTimer);
     };
   }, [isTransitionComplete]);
@@ -214,8 +238,8 @@ export default function AboutPage() {
         className="about-page-wrapper"
         data-theme="light"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        animate={{ opacity: 1, position: "relative" }}
+        exit={{ opacity: 0, position: "absolute", top: 0, left: 0, width: "100%", zIndex: 10 }}
         transition={{ duration: 0.8, delay: 0.3 }}
         onAnimationComplete={() => {
           setIsTransitionComplete(true);
@@ -223,132 +247,132 @@ export default function AboutPage() {
         }}
       >
 
-      <div ref={containerRef} className="about-animation-section">
-        {/* Soft light transition background layer */}
-        <div ref={transitionBgRef} className="about-transition-bg" />
+        <div ref={containerRef} className="about-animation-section">
+          {/* Soft light transition background layer */}
+          <div ref={transitionBgRef} className="about-transition-bg" />
 
-        {/* Center image positioned absolutely inside container */}
-        <div ref={imageRef} className="about-main-image-container">
-          <div className="about-main-image" />
+          {/* Center image positioned absolutely inside container */}
+          <div ref={imageRef} className="about-main-image-container">
+            <div className="about-main-image" />
+          </div>
+
+          <div ref={trackRef} className="about-horizontal-track">
+            {/* Panel 1: About Me */}
+            <div className="about-panel panel-1">
+              <div className="about-collage-container">
+                {/* Left Column: Title */}
+                <div className="about-title-column">
+                  <h2 className="about-main-title">About<br />Me</h2>
+                </div>
+
+                {/* Center Spacer matching target image bounds */}
+                <div className="about-image-center-placeholder"></div>
+
+                {/* Right Column: Quote and signature */}
+                <div className="collage-quote-box">
+                  <p className="collage-quote">"It doesn't matter where you start, it's how you progress from there."</p>
+                  <span className="collage-signature">Lando Norris</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Panel 2: Skills & Technologies */}
+            <div className="about-panel panel-2">
+              <div className="about-panel-content skills-panel-content">
+                <h2 className="about-panel-title">Tech Stack</h2>
+                <p className="skills-intro">
+                  Full Stack Developer specializing in modern web experiences, AI-powered applications and scalable backend systems.
+                </p>
+                <div className="skills-list">
+                  <div className="skills-row">
+                    <span className="skills-row-label">Frontend Development</span>
+                    <span className="skills-row-items">Next.js, React, JavaScript (ES6+), TypeScript, HTML5, CSS3, Tailwind CSS</span>
+                  </div>
+                  <div className="skills-row">
+                    <span className="skills-row-label">Animation & UI</span>
+                    <span className="skills-row-items">Framer Motion, Motion, Lenis, GSAP, Three.js, OGL, WebGL</span>
+                  </div>
+                  <div className="skills-row">
+                    <span className="skills-row-label">Backend Development</span>
+                    <span className="skills-row-items">Node.js, Express.js, Python, REST APIs, Auth & Authz</span>
+                  </div>
+                  <div className="skills-row">
+                    <span className="skills-row-label">Database</span>
+                    <span className="skills-row-items">MongoDB, Supabase, PostgreSQL, Firebase</span>
+                  </div>
+                  <div className="skills-row">
+                    <span className="skills-row-label">AI & Automation</span>
+                    <span className="skills-row-items">AI Agents, OpenAI APIs, Workflows, Automation, Prompt Eng., LLMs</span>
+                  </div>
+                  <div className="skills-row">
+                    <span className="skills-row-label">Web3 Development</span>
+                    <span className="skills-row-items">EVM Ecosystem, Smart Contracts, Wallet Connect, Web3.js, Ethers.js, Analytics</span>
+                  </div>
+                  <div className="skills-row skills-row-wide">
+                    <span className="skills-row-label">Tools</span>
+                    <span className="skills-row-items">Git / GitHub, VS Code, Vercel, Linux, Docker</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Panel 3: Discord Moderator */}
+            <div className="about-panel panel-3">
+              <div className="about-panel-content double-column-panel">
+                <div className="panel-left-col panel-text-col">
+                  <h2 className="about-panel-title panel-title-left">Discord Moderator</h2>
+                  <p className="about-panel-desc">
+                    As a Moderator, I help maintain a safe, engaging, and organized community environment. My responsibilities include community moderation, member support, conflict resolution, event coordination, bot management, permission systems, and ensuring smooth day-to-day server operations. I also manage and configure Discord bots to automate workflows, moderation tasks, and community engagement systems.
+                  </p>
+                </div>
+                <div className="panel-right-col panel-server-col">
+                  <h3 className="server-heading">Servers</h3>
+                  <a
+                    href="https://discord.gg/Tbd96eh4Tq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="server-logo-link"
+                    aria-label="Join the Future Leaders Discord server"
+                  >
+                    <img ref={discordLogoRef} src={futureLeadersLogo} alt="Future Leaders" className="server-logo-img" />
+                    <span className="server-logo-name">Future Leaders</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Panel 4: Brand Ambassador */}
+            <div className="about-panel panel-4">
+              <div className="about-panel-content double-column-panel">
+                <div className="panel-left-col panel-text-col">
+                  <h2 className="about-panel-title panel-title-left">Brand Ambassador</h2>
+                  <p className="about-panel-desc">
+                    I have experience working as a Brand Ambassador within the AI and Web3 ecosystem, helping projects expand their reach, strengthen community engagement and build meaningful relationships with users.
+                  </p>
+                  <p className="about-panel-desc">
+                    I actively contributed to community growth through content creation, social media engagement, user onboarding, feedback collection and project advocacy across platforms such as X (Twitter) and Discord.
+                  </p>
+                </div>
+                <div className="panel-right-col panel-server-col">
+                  <h3 className="server-heading">Brands</h3>
+                  <a
+                    href="https://x.com/idolly_AI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="server-logo-link"
+                    aria-label="Visit IdollyAI on X"
+                  >
+                    <img ref={idollyLogoRef} src={idollyLogo} alt="IdollyAI" className="server-logo-img" />
+                    <span className="server-logo-name">IdollyAI</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div ref={trackRef} className="about-horizontal-track">
-          {/* Panel 1: About Me */}
-          <div className="about-panel panel-1">
-            <div className="about-collage-container">
-              {/* Left Column: Title */}
-              <div className="about-title-column">
-                <h2 className="about-main-title">About<br />Me</h2>
-              </div>
 
-              {/* Center Spacer matching target image bounds */}
-              <div className="about-image-center-placeholder"></div>
-
-              {/* Right Column: Quote and signature */}
-              <div className="collage-quote-box">
-                <p className="collage-quote">"It doesn't matter where you start, it's how you progress from there."</p>
-                <span className="collage-signature">Lando Norris</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Panel 2: Skills & Technologies */}
-          <div className="about-panel panel-2">
-            <div className="about-panel-content skills-panel-content">
-              <h2 className="about-panel-title">Skills & Technologies</h2>
-              <p className="skills-intro">
-                Full Stack Developer specializing in modern web experiences, AI-powered applications and scalable backend systems.
-              </p>
-              <div className="skills-list">
-                <div className="skills-row">
-                  <span className="skills-row-label">Frontend Development</span>
-                  <span className="skills-row-items">Next.js, React, JavaScript (ES6+), TypeScript, HTML5, CSS3, Tailwind CSS</span>
-                </div>
-                <div className="skills-row">
-                  <span className="skills-row-label">Animation & UI</span>
-                  <span className="skills-row-items">Framer Motion, Motion, Lenis, GSAP, Three.js, OGL, WebGL</span>
-                </div>
-                <div className="skills-row">
-                  <span className="skills-row-label">Backend Development</span>
-                  <span className="skills-row-items">Node.js, Express.js, Python, REST APIs, Auth & Authz</span>
-                </div>
-                <div className="skills-row">
-                  <span className="skills-row-label">Database</span>
-                  <span className="skills-row-items">MongoDB, Supabase, PostgreSQL, Firebase</span>
-                </div>
-                <div className="skills-row">
-                  <span className="skills-row-label">AI & Automation</span>
-                  <span className="skills-row-items">AI Agents, OpenAI APIs, Workflows, Automation, Prompt Eng., LLMs</span>
-                </div>
-                <div className="skills-row">
-                  <span className="skills-row-label">Web3 Development</span>
-                  <span className="skills-row-items">EVM Ecosystem, Smart Contracts, Wallet Connect, Web3.js, Ethers.js, Analytics</span>
-                </div>
-                <div className="skills-row skills-row-wide">
-                  <span className="skills-row-label">Tools</span>
-                  <span className="skills-row-items">Git / GitHub, VS Code, Vercel, Linux, Docker</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Panel 3: Discord Moderator */}
-          <div className="about-panel panel-3">
-            <div className="about-panel-content double-column-panel">
-              <div className="panel-left-col panel-text-col">
-                <h2 className="about-panel-title panel-title-left">Discord Moderator</h2>
-                <p className="about-panel-desc">
-                  As a Moderator, I help maintain a safe, engaging, and organized community environment. My responsibilities include community moderation, member support, conflict resolution, event coordination, bot management, permission systems, and ensuring smooth day-to-day server operations. I also manage and configure Discord bots to automate workflows, moderation tasks, and community engagement systems.
-                </p>
-              </div>
-              <div className="panel-right-col panel-server-col">
-                <h3 className="server-heading">Servers</h3>
-                <a
-                  href="https://discord.gg/Tbd96eh4Tq"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="server-logo-link"
-                  aria-label="Join the Future Leaders Discord server"
-                >
-                  <img ref={discordLogoRef} src={futureLeadersLogo} alt="Future Leaders" className="server-logo-img" />
-                  <span className="server-logo-name">Future Leaders</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Panel 4: Brand Ambassador */}
-          <div className="about-panel panel-4">
-            <div className="about-panel-content double-column-panel">
-              <div className="panel-left-col panel-text-col">
-                <h2 className="about-panel-title panel-title-left">Brand Ambassador</h2>
-                <p className="about-panel-desc">
-                  I have experience working as a Brand Ambassador within the AI and Web3 ecosystem, helping projects expand their reach, strengthen community engagement and build meaningful relationships with users.
-                </p>
-                <p className="about-panel-desc">
-                  I actively contributed to community growth through content creation, social media engagement, user onboarding, feedback collection and project advocacy across platforms such as X (Twitter) and Discord.
-                </p>
-              </div>
-              <div className="panel-right-col panel-server-col">
-                <h3 className="server-heading">Brands</h3>
-                <a
-                  href="https://x.com/idolly_AI"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="server-logo-link"
-                  aria-label="Visit IdollyAI on X"
-                >
-                  <img ref={idollyLogoRef} src={idollyLogo} alt="IdollyAI" className="server-logo-img" />
-                  <span className="server-logo-name">IdollyAI</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <Footer />
+        <Footer />
       </motion.div>
     </>
   );
