@@ -1,18 +1,11 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import Contact from '../components/Contact';
-import './ContactPage.css';
+import Seo from '../src/components/Seo';
+import Navbar from '../src/components/Navbar';
+import Footer from '../src/components/Footer';
+import Contact from '../src/components/Contact';
 
 export default function ContactPage() {
-  useDocumentMetadata({
-    title: "Contact | Mr Arindam — Get in Touch for Collaborations",
-    description: "Reach out to Mr Arindam for project collaborations, freelance work, brand partnerships, or just to say hello. Let's build something amazing together.",
-    canonicalPath: "/contact"
-  });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -27,7 +20,13 @@ export default function ContactPage() {
       transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
     >
       <Navbar />
-      
+
+      <Seo
+        title="Contact | Mr Arindam — Get in Touch for Collaborations"
+        description="Reach out to Mr Arindam for project collaborations, freelance work, brand partnerships, or just to say hello. Let's build something amazing together."
+        canonicalPath="/contact"
+      />
+
       <div className="contact-content-container">
         <Contact />
       </div>

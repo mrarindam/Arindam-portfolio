@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './RetroGame.css';
 
 export default function RetroGame() {
   const [isMobile, setIsMobile] = useState(false);

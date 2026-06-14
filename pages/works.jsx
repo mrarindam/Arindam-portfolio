@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { mainProjects, otherProjects } from '../data/projects';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import RetroGame from '../components/RetroGame';
-import './WorksPage.css';
+import { mainProjects, otherProjects } from '../src/data/projects';
+import Seo from '../src/components/Seo';
+import Navbar from '../src/components/Navbar';
+import Footer from '../src/components/Footer';
+import RetroGame from '../src/components/RetroGame';
 
 export default function WorksPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  useDocumentMetadata({
-    title: "My Work | Mr Arindam — Projects & Creations",
-    description: "A curated showcase of applications, Web3 integrations, SaaS platforms, gaming projects, and digital tools built by Mr Arindam.",
-    canonicalPath: "/works"
-  });
 
   // Scroll to top when page loads
   useEffect(() => {
@@ -41,7 +34,13 @@ export default function WorksPage() {
       transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
     >
       <Navbar />
-      
+
+      <Seo
+        title="My Work | Mr Arindam — Projects & Creations"
+        description="A curated showcase of applications, Web3 integrations, SaaS platforms, gaming projects, and digital tools built by Mr Arindam."
+        canonicalPath="/works"
+      />
+
       <motion.div 
         className="projects-page-container"
         initial={{ opacity: 0, y: 30 }}

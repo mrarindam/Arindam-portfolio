@@ -2,22 +2,15 @@ import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
 import Blogs from './Blogs';
-import './About.css';
 
-// Brand logos
-import idollyLogo from '../media/brandlogo/idolly AI.jpg';
-import futureLeadersLogo from '../media/brandlogo/futureleaders.jpg';
+// Brand logos (served from /public/media; 'idolly AI.jpg' is URL-encoded)
+const idollyLogo = '/media/brandlogo/idolly%20AI.jpg';
+const futureLeadersLogo = '/media/brandlogo/futureleaders.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-  useDocumentMetadata({
-    title: "Mr Arindam | Designer, Developer & Creator Portfolio",
-    description: "Welcome to the official portfolio of Mr Arindam. Discover high-performance web applications, AI integrations, creative designs, and full-stack development projects."
-  });
-
   const lenis = useLenis();
   const containerRef = useRef(null);
   const bg1Ref = useRef(null);
@@ -400,10 +393,6 @@ export default function Hero() {
                   <div className="skills-row">
                     <span className="skills-row-label">Web3 Development</span>
                     <span className="skills-row-items">EVM Ecosystem, Smart Contracts, Wallet Connect, Web3.js, Ethers.js, Analytics</span>
-                  </div>
-                  <div className="skills-row skills-row-wide">
-                    <span className="skills-row-label">Tools</span>
-                    <span className="skills-row-items">Git / GitHub, VS Code, Vercel, Linux, Docker</span>
                   </div>
                 </div>
               </div>

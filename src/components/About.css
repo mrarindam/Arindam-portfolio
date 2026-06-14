@@ -570,3 +570,88 @@
     line-height: 1.4;
   }
 }
+
+/* ============================================ */
+/* Narrow phones (<=400px, e.g. 360x740)        */
+/* Fix horizontal clipping + content overflow   */
+/* ============================================ */
+@media (max-width: 400px) {
+  /* More usable width on tiny screens (panel padding stacks on the
+     inner content's own padding). */
+  .about-panel {
+    padding: 1rem 0.5rem;
+  }
+
+  /* Tech Stack: compact 2-column grid sized to fit a 360x740 screen with
+     breathing room top & bottom. The grid stays centered (justify-content
+     from .about-panel-content) so a smaller block leaves clear gaps above
+     and below instead of overflowing. minmax(0,1fr)+min-width:0 keeps the
+     columns shrinking to fit rather than expanding to their content. */
+  .skills-panel-content {
+    padding: 4rem 0.5rem 1.5rem 0.5rem;
+  }
+
+  .about-panel-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .skills-intro {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    margin-bottom: 0.9rem;
+    max-width: 100%;
+  }
+
+  .skills-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding: 0 0.1rem 0.5rem 0.1rem;
+  }
+
+  .skills-row,
+  .skills-row.skills-row-wide {
+    grid-column: auto;
+    min-width: 0;
+    padding: 0.55rem 0.65rem;
+    gap: 0.25rem;
+  }
+
+  /* Label wraps at spaces (FRONTEND / DEVELOPMENT), not mid-word */
+  .skills-row-label {
+    min-width: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    overflow-wrap: break-word;
+  }
+
+  .skills-row-items {
+    min-width: 0;
+    font-size: 0.72rem;
+    line-height: 1.35;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Panels 3 & 4 (Discord Moderator / Brand Ambassador): tall content was
+     vertically centered, so the title slid up under the fixed navbar logo.
+     Top-align and pad below the navbar so the heading is always visible. */
+  .panel-3 .double-column-panel,
+  .panel-4 .double-column-panel {
+    justify-content: flex-start;
+    padding-top: 5.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .about-panel-desc {
+    font-size: 0.92rem;
+    line-height: 1.6;
+  }
+
+  /* About Me panel: tighten the stacked title/image/quote spacing so it
+     fits a short (740px) viewport without a big empty gap. */
+  .about-collage-container {
+    padding: 5rem 1rem 2rem 1rem;
+    gap: 1rem;
+  }
+}

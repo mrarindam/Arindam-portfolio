@@ -1,20 +1,20 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './ExplorePortfolio.css';
 
-// Graphics Images
-import img1 from '../media/graphics/1.webp';
-import img2 from '../media/graphics/2.webp';
-import img3 from '../media/graphics/3.webp';
-import img4 from '../media/graphics/4.webp';
-import img5 from '../media/graphics/5.webp';
-import img6 from '../media/graphics/6.webp';
-import img7 from '../media/graphics/7.webp';
-import img8 from '../media/graphics/8.webp';
-import img9 from '../media/graphics/9.webp';
+// Graphics Images (served from /public/media)
+const img1 = '/media/graphics/1.webp';
+const img2 = '/media/graphics/2.webp';
+const img3 = '/media/graphics/3.webp';
+const img4 = '/media/graphics/4.webp';
+const img5 = '/media/graphics/5.webp';
+const img6 = '/media/graphics/6.webp';
+const img7 = '/media/graphics/7.webp';
+const img8 = '/media/graphics/8.webp';
+const img9 = '/media/graphics/9.webp';
 
-import exploreTheWorksSvg from '../media/graphics/Explore The Works.svg';
+// 'Explore The Works.svg' contains spaces, so it is URL-encoded
+const exploreTheWorksSvg = '/media/graphics/Explore%20The%20Works.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 

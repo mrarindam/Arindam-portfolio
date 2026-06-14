@@ -1,13 +1,15 @@
-import blog1Img from '../media/blog1.webp';
-import blog2Img from '../media/blog2.webp';
-import blog3Img from '../media/blog3.webp';
-import blog4Img from '../media/blog4.webp';
-import blog5Img from '../media/blog5.webp';
-import blog6Img from '../media/blog 6.webp';
-import blog7Img from '../media/blog7.webp';
-import adsJpg from '../media/ads.webp';
-import exampleClick from '../media/exampleClick.webp';
-import chromeTension from '../media/chrometention.webp';
+// Assets live in /public/media and are referenced by absolute URL paths.
+// Note: 'blog 6.webp' contains a space, so it is URL-encoded.
+const blog1Img = '/media/blog1.webp';
+const blog2Img = '/media/blog2.webp';
+const blog3Img = '/media/blog3.webp';
+const blog4Img = '/media/blog4.webp';
+const blog5Img = '/media/blog5.webp';
+const blog6Img = '/media/blog%206.webp';
+const blog7Img = '/media/blog7.webp';
+const adsJpg = '/media/ads.webp';
+const exampleClick = '/media/exampleClick.webp';
+const chromeTension = '/media/chrometention.webp';
 
 export const toSlug = (title) => {
   return title

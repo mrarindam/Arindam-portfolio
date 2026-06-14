@@ -1,9 +1,8 @@
 import React, { useRef, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import './Creations.css';
 
 import { mainProjects } from '../data/projects';
 
@@ -182,7 +181,7 @@ export default function Creations() {
                       )}
                       {idx === mainProjects.length - 1 && (
                         <MotionLink
-                          to="/works"
+                          href="/works"
                           className="creations-btn btn-explore-more"
                           whileHover={{ scale: 1.05, y: -4 }}
                           whileTap={{ scale: 0.95 }}
@@ -227,7 +226,7 @@ export default function Creations() {
 
         <div className="mobile-explore-more-container mobile-only-control">
           <MotionLink
-            to="/works"
+            href="/works"
             className="mobile-explore-more-btn"
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}

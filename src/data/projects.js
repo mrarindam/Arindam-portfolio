@@ -1,11 +1,12 @@
-import prj1 from '../media/Projects/prj1.webp';
-import prj2 from '../media/Projects/prj2.webp';
-import prj3 from '../media/Projects/prj3.webp';
-import prj4 from '../media/Projects/prj4.webp';
-import prj5 from '../media/Projects/prj5.webp';
-import prj6 from '../media/Projects/prj6.webp';
-import prj7 from '../media/Projects/prj7.webp';
-import prj8 from '../media/Projects/prj8.webp';
+// Assets live in /public/media and are referenced by absolute URL paths.
+const prj1 = '/media/Projects/prj1.webp';
+const prj2 = '/media/Projects/prj2.webp';
+const prj3 = '/media/Projects/prj3.webp';
+const prj4 = '/media/Projects/prj4.webp';
+const prj5 = '/media/Projects/prj5.webp';
+const prj6 = '/media/Projects/prj6.webp';
+const prj7 = '/media/Projects/prj7.webp';
+const prj8 = '/media/Projects/prj8.webp';
 
 export const mainProjects = [
   {

@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ShieldCheck, ChevronLeft } from 'lucide-react';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import './LegalPages.css';
+import Seo from '../src/components/Seo';
+import Navbar from '../src/components/Navbar';
+import Footer from '../src/components/Footer';
 
 export default function PrivacyPage() {
-  useDocumentMetadata({
-    title: "Privacy Policy | Mr Arindam — How Your Data Is Protected",
-    description: "Read the privacy policy for mrarindam.xyz. Learn how we collect, use, and protect your personal information when you visit or interact with our website.",
-    canonicalPath: "/privacy"
-  });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -29,8 +22,14 @@ export default function PrivacyPage() {
     >
       <Navbar />
 
+      <Seo
+        title="Privacy Policy | Mr Arindam — How Your Data Is Protected"
+        description="Read the privacy policy for mrarindam.xyz. Learn how we collect, use, and protect your personal information when you visit or interact with our website."
+        canonicalPath="/privacy"
+      />
+
       <div className="legal-content-container">
-        <Link to="/" className="back-link">
+        <Link href="/" className="back-link">
           <ChevronLeft size={18} />
           Back to Home
         </Link>

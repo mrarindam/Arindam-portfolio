@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="main-footer" data-theme="dark">
@@ -14,10 +13,10 @@ export default function Footer() {
         <div className="footer-col">
           <span className="col-header">GENERAL MENU</span>
           <ul className="footer-menu-links">
-            <li><Link to="/works">WORKS</Link></li>
-            <li><Link to="/about">ABOUT</Link></li>
-            <li><Link to="/blogs">BLOGS</Link></li>
-            <li><Link to="/contact">CONTACT</Link></li>
+            <li><Link href="/works">WORKS</Link></li>
+            <li><Link href="/about">ABOUT</Link></li>
+            <li><Link href="/blogs">BLOGS</Link></li>
+            <li><Link href="/contact">CONTACT</Link></li>
           </ul>
         </div>
 
@@ -48,9 +47,9 @@ export default function Footer() {
       <div className="footer-bottom">
         <span className="footer-copy">MR ARINDAM &copy; {new Date().getFullYear()} ALL RIGHTS RESERVED.</span>
         <div className="footer-policies">
-          <Link to="/privacy" className="footer-policy-link">PRIVACY POLICY</Link>
+          <Link href="/privacy" className="footer-policy-link">PRIVACY POLICY</Link>
           <span className="policy-divider">|</span>
-          <Link to="/terms" className="footer-policy-link">TERMS OF SERVICE</Link>
+          <Link href="/terms" className="footer-policy-link">TERMS OF SERVICE</Link>
         </div>
       </div>
     </footer>

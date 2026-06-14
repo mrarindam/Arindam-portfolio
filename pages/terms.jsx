@@ -1,19 +1,12 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FileText, ChevronLeft } from 'lucide-react';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import './LegalPages.css';
+import Seo from '../src/components/Seo';
+import Navbar from '../src/components/Navbar';
+import Footer from '../src/components/Footer';
 
 export default function TermsPage() {
-  useDocumentMetadata({
-    title: "Terms of Service | Mr Arindam — Usage Guidelines & Policies",
-    description: "Review the terms of service for mrarindam.xyz. Understand the rules, intellectual property rights, and limitations governing the use of this website.",
-    canonicalPath: "/terms"
-  });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -29,8 +22,14 @@ export default function TermsPage() {
     >
       <Navbar />
 
+      <Seo
+        title="Terms of Service | Mr Arindam — Usage Guidelines & Policies"
+        description="Review the terms of service for mrarindam.xyz. Understand the rules, intellectual property rights, and limitations governing the use of this website."
+        canonicalPath="/terms"
+      />
+
       <div className="legal-content-container">
-        <Link to="/" className="back-link">
+        <Link href="/" className="back-link">
           <ChevronLeft size={18} />
           Back to Home
         </Link>

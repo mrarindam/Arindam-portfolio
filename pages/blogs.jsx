@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { blogs, toSlug } from '../data/blogs';
-import './BlogsPage.css';
+import Seo from '../src/components/Seo';
+import Navbar from '../src/components/Navbar';
+import Footer from '../src/components/Footer';
+import { blogs, toSlug } from '../src/data/blogs';
 
 const MotionLink = motion(Link);
 
@@ -50,12 +49,6 @@ const getBlogTag = (id) => {
 };
 
 export default function BlogsPage() {
-  useDocumentMetadata({
-    title: "Blog | Mr Arindam — Articles on Development, Security & Tech",
-    description: "Read articles by Mr Arindam on web development, cybersecurity, automation, Python scripting, and hands-on tech tutorials.",
-    canonicalPath: "/blogs"
-  });
-
   // Scroll to top on page load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -71,7 +64,13 @@ export default function BlogsPage() {
       transition={{ type: "spring", stiffness: 90, damping: 18, mass: 0.8 }}
     >
       <Navbar />
-      
+
+      <Seo
+        title="Blog | Mr Arindam — Articles on Development, Security & Tech"
+        description="Read articles by Mr Arindam on web development, cybersecurity, automation, Python scripting, and hands-on tech tutorials."
+        canonicalPath="/blogs"
+      />
+
       {/* Moving Text Marquee Section */}
       <div className="marquee-container">
         <div className="marquee-content">
@@ -111,8 +110,8 @@ export default function BlogsPage() {
             const tag = getBlogTag(blog.id);
             return (
               <article key={blog.id} className="article-card">
-                <MotionLink 
-                  to={`/blog/${toSlug(blog.title)}`} 
+                <MotionLink
+                  href={`/blog/${toSlug(blog.title)}`}
                   className="article-card-link"
                   initial="rest"
                   whileHover="hover"

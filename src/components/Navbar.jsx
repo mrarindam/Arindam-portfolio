@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useNavbarTheme from '../hooks/useNavbarTheme';
-import './Navbar.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,15 +67,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [_activeSection, setActiveSection] = useState('home');
   const lenis = useLenis();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
 
   // Handle cross-page scrolling when landing back on the homepage
   useEffect(() => {
-    if (location.state && location.state.scrollTo && location.pathname === '/') {
-      const id = location.state.scrollTo;
-      // Clear state so it doesn't trigger again on reload
-      window.history.replaceState({}, document.title);
+    if (router.query.scrollTo && router.pathname === '/') {
+      const id = router.query.scrollTo;
+      // Clear the query param so it doesn't trigger again on reload
+      router.replace('/', undefined, { shallow: true });
 
       setTimeout(() => {
         if (id === 'about') {
@@ -118,7 +116,10 @@ export default function Navbar() {
         }
       }, 300);
     }
-  }, [location, lenis]);
+    // Depend on the specific router fields we read, not the whole router
+    // object (its identity changes on every navigation and would re-run this).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.scrollTo, router.pathname, lenis]);
 
 
 
@@ -203,27 +204,27 @@ export default function Navbar() {
     setIsDesktopOpen(false);
 
     if (id === 'contact') {
-      navigate('/contact');
+      router.push('/contact');
       return;
     }
 
     if (id === 'blogs') {
-      navigate('/blogs');
+      router.push('/blogs');
       return;
     }
 
     if (id === 'works') {
-      navigate('/works');
+      router.push('/works');
       return;
     }
 
     if (id === 'about') {
-      navigate('/about');
+      router.push('/about');
       return;
     }
 
     if (window.location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: id } });
+      router.push({ pathname: '/', query: { scrollTo: id } });
       return;
     }
 

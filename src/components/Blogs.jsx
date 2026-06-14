@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { blogs, toSlug } from '../data/blogs';
-import './Blogs.css';
 
 const MotionLink = motion(Link);
 
@@ -53,7 +53,7 @@ export default function Blogs() {
   const containerRef = useRef(null);
   const [cardsToShow, setCardsToShow] = useState(3);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -120,8 +120,8 @@ export default function Blogs() {
                     viewport={{ once: true, margin: "-50px" }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    <MotionLink 
-                      to={`/blog/${toSlug(blog.title)}`} 
+                    <MotionLink
+                      href={`/blog/${toSlug(blog.title)}`}
                       className="blog-card-link-custom"
                       initial="rest"
                       whileHover="hover"
@@ -202,7 +202,7 @@ export default function Blogs() {
               />
             </div>
             
-            <button className="blogs-list-btn" onClick={() => navigate('/blogs')}>
+            <button className="blogs-list-btn" onClick={() => router.push('/blogs')}>
               Blog List
             </button>
           </div>

@@ -707,3 +707,46 @@ html.blog-open body {
   }
 }
 
+/* ============================================ */
+/* Narrow phones (<=400px, e.g. 360x740)        */
+/* The Blogs panel is pinned to 100vh during    */
+/* the Hero scroll; on a short viewport the      */
+/* "Blog List" button was pushed off-screen.     */
+/* Tighten vertical spacing so it all fits.      */
+/* ============================================ */
+@media (max-width: 400px) {
+  .blogs-section-purple {
+    padding: 4.5rem 1.25rem 2.5rem;
+  }
+
+  .blogs-split-container {
+    gap: 1.5rem;
+  }
+
+  .blogs-content-area {
+    gap: 1.5rem;
+  }
+
+  .blogs-sidebar-title {
+    font-size: 2.6rem;
+  }
+
+  /* Shorter cards so the slider + controls row both stay on screen */
+  .blog-card-thumb-custom {
+    aspect-ratio: 16 / 9;
+  }
+
+  .blog-card-body-custom {
+    padding: 1.1rem;
+  }
+
+  .blog-card-desc-custom {
+    -webkit-line-clamp: 2;
+    margin-bottom: 1rem;
+  }
+
+  .blogs-controls-row {
+    gap: 1rem;
+  }
+}
+

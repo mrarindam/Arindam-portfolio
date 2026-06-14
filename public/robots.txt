@@ -1,0 +1,8 @@
+# robots.txt for https://mrarindam.xyz
+# Allow all crawlers full access to the site.
+
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap (generated dynamically from the live routes).
+Sitemap: https://mrarindam.xyz/sitemap.xml

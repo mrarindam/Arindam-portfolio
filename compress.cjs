@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 
 const directories = [
-  path.join(__dirname, 'src', 'media'),
   path.join(__dirname, 'public')
 ];
 

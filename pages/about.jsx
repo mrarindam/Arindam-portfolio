@@ -1,26 +1,20 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
-import useDocumentMetadata from '../hooks/useDocumentMetadata';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import idollyLogo from '../media/brandlogo/idolly AI.jpg';
-import futureLeadersLogo from '../media/brandlogo/futureleaders.jpg';
+import { useRouter } from 'next/router';
+import Seo from '../src/components/Seo';
+import Navbar from '../src/components/Navbar';
+import Footer from '../src/components/Footer';
 import { useLenis } from 'lenis/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './AboutPage.css';
-import '../components/About.css';
+
+// Brand logos (served from /public/media; 'idolly AI.jpg' is URL-encoded)
+const idollyLogo = '/media/brandlogo/idolly%20AI.jpg';
+const futureLeadersLogo = '/media/brandlogo/futureleaders.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutPage() {
-  useDocumentMetadata({
-    title: "About Me | Mr Arindam — Developer & Creator",
-    description: "Get to know Arindam — a Full Stack Developer specializing in modern web experiences, AI agents, Discord moderation, and brand ambassadorship in AI & Web3.",
-    canonicalPath: "/about"
-  });
-
   const containerRef = useRef(null);
   const trackRef = useRef(null);
   const imageRef = useRef(null);
@@ -30,17 +24,17 @@ export default function AboutPage() {
   const lenis = useLenis();
   const [isTransitionComplete, setIsTransitionComplete] = useState(false);
   const ctxRef = useRef(null);
-  const location = useLocation();
+  const router = useRouter();
 
   useEffect(() => {
-    if (!location.pathname.startsWith('/about')) {
+    if (!router.pathname.startsWith('/about')) {
       if (ctxRef.current) {
         ctxRef.current.revert();
         ctxRef.current = null;
       }
       ScrollTrigger.refresh();
     }
-  }, [location.pathname]);
+  }, [router.pathname]);
 
   // 1. On mount, reset scroll and set initial static layout positioning immediately to ensure perfect visual layout during transition
   useLayoutEffect(() => {
@@ -233,6 +227,11 @@ export default function AboutPage() {
         }}
       />
 
+      <Seo
+        title="About Me | Mr Arindam — Developer & Creator"
+        description="Get to know Arindam — a Full Stack Developer specializing in modern web experiences, AI agents, Discord moderation, and brand ambassadorship in AI & Web3."
+        canonicalPath="/about"
+      />
       <Navbar />
       <motion.div 
         className="about-page-wrapper"
@@ -307,10 +306,6 @@ export default function AboutPage() {
                   <div className="skills-row">
                     <span className="skills-row-label">Web3 Development</span>
                     <span className="skills-row-items">EVM Ecosystem, Smart Contracts, Wallet Connect, Web3.js, Ethers.js, Analytics</span>
-                  </div>
-                  <div className="skills-row skills-row-wide">
-                    <span className="skills-row-label">Tools</span>
-                    <span className="skills-row-items">Git / GitHub, VS Code, Vercel, Linux, Docker</span>
                   </div>
                 </div>
               </div>

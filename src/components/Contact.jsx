@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import "./Contact.css";
 
 // Custom SVG Icons
 const GithubIcon = ({ size }) => (
