@@ -20,7 +20,7 @@ import '../src/components/Creations.css';
 import '../src/components/ExplorePortfolio.css';
 import '../src/components/Footer.css';
 import '../src/components/Contact.css';
-import '../src/components/RetroGame.css';
+import '../src/components/ShareModal.css';
 import '../src/styles/AboutPage.css';
 import '../src/styles/BlogsPage.css';
 import '../src/styles/WorksPage.css';
